@@ -2,15 +2,12 @@
   "name": "lets-talk-about--example",
   "description": "Example for slides build with HTML and CSS.",
   "author": "Tamino Martinius",
-  "homepage": "https://github.com/tamino-martinius/lets-talk-about--template",
-  "bin": {
-    "build-slides": "./bin/build-slides.js"
-  },
+  "homepage": "https://github.com/tamino-martinius/lets-talk-about--example",
   "scripts": {
     "start": "build-slides"
   },
   "license": "MIT",
-  "devDependencies": {
-    "lets-talk-about--template": "file:../lets-talk-about--template"
+  "dependencies": {
+    "lets-talk-about--template": "^1.0.0"
   }
 }
