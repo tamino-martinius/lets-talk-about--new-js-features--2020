@@ -3,6 +3,8 @@ html
   head
       title Lets talk about ... Example
       meta(charset='utf-8')
+      script
+        | window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';
       script(src='node_modules/lets-talk-about--template/assets/vendor/slides.js')
       link(href='styles.css'  rel='stylesheet' type='text/css')
   body
