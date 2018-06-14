@@ -78,6 +78,12 @@ f(1, 2, "hello", true, 7) === 9;</pre></li></ul></article><article><h1>Template 
       yield cur;
     }
   },
+};</pre></li></ul></article><article><h2>ES 6 Generator</h2><ul><li><pre>let *fibonacci = {
+  let pre = 0, cur = 1
+  for (;;) {
+    [ pre, cur ] = [ cur, pre + cur ];
+    yield cur;
+  }
 };</pre></li></ul></article><article><h2>Generator vs Recursion</h2><ul class="build"><li>Recursion often looks more readable</li><li>Generator can easily use past values</li></ul></article><article><h2>Building an range array</h2><ul class="build"><li><pre>function range(start, end, step) {
   const range = [];
   while (start < end) {

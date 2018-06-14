@@ -227,6 +227,18 @@ html
               |   },
               | };
       article
+        h2 ES 6 Generator
+        ul
+          li
+            pre
+              | let *fibonacci = {
+              |   let pre = 0, cur = 1
+              |   for (;;) {
+              |     [ pre, cur ] = [ cur, pre + cur ];
+              |     yield cur;
+              |   }
+              | };
+      article
         h2 Generator vs Recursion
         ul.build
           li Recursion often looks more readable
