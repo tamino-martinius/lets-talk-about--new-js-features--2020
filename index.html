@@ -1,3 +1,118 @@
-<!DOCTYPE html><html><head><title>Lets talk about ... Example</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article><h1>H1</h1><h2>H2</h2></article><article class="image" data-src="node_modules/lets-talk-about--template/assets/memes/philosoraptor.jpg"><h1>Background Image</h1></article><article class="image cover" data-src="node_modules/lets-talk-about--template/assets/memes/philosoraptor.jpg"><h1>Cover Image</h1></article><article><ul><li>Inline Image</li><li><img src="node_modules/lets-talk-about--template/assets/memes/like-a-boss.jpg"></li></ul></article><article><h2>List</h2><ul class="build"><li>1.</li><li>2.</li><li>3.</li><li>4.</li></ul></article><article><h2>Code</h2><pre>const code = 'without line numbers';</pre><pre class="linenums">const code = 'with line numbers';</pre></article><article><h2>Code with highlights</h2><pre class="linenums h1">const line1 = 'normal'
-const line2 = 'highlight'
-const line3 = 'normal'</pre></article><article class="section"><h1>New Section</h1></article><article><ul><li><em>Emphasis</em></li><li><i>Italic</i></li><li>Inline <em>Emphasis</em> and <i>Italic</i></li><li><a href="#">Link</a></li></ul></article><article><video src="#" loop controls></video></article></section><script src="node_modules/lets-talk-about--template/assets/scripts/main.js"></script></body></html>
+<!DOCTYPE html><html><head><title>Lets talk about ... Example</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article><h1>New in JS</h1></article><article><h1>Arrow functions</h1></article><article><h2>Basic Example</h2><ul class="build"><li><pre>odds  = evens.map(function (v) {
+  return v + 1;
+});</pre></li><li><pre>odds  = evens.map(v => v + 1);</pre></li></ul></article><article><h2>Multiple parameters</h2><ul class="build"><li><pre>nums = numbers.map(function (v, i) {
+  return v + i;
+});</pre></li><li><pre>nums  = numbers.map((v, i) => v + i);</pre></li></ul></article><article><h2>Multiple actions</h2><ul class="build"><li><pre>let shift = false;
+shiftPartial = numbers.map(v => {
+  shift = !shift;
+  return shift ? v + 1 : v;
+});</pre></li></ul></article><article><h2>It's a Trap</h2><ul class="build"><li><pre>obj = values.map(v => { [v]: v });</pre></li></ul></article><article><h2>It can be a Trap</h2><ul><li><pre>obj = values.map(v => { [v]: v });</pre></li><li><pre>obj = values.map(v => ({ [v]: v }));</pre></li></ul></article><article><h1>Promises</h1><ul class="build"><li><pre>function timeout(duration = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, duration);
+  });
+}</pre></li></ul></article><article><h1>Async & Await</h1><ul class="build"><li><pre>async function work() {
+  await timeout(10000);
+  console.log('done');
+}
+
+work();</pre></li></ul></article><article><h1>Rest Parameter</h1></article><article><h2>ES 5</h2></article><article><h2>ES 5</h2><ul class="build"><li><pre>function f (x, y) {
+  var a = Array.prototype.slice.call(
+    arguments, 2
+  );
+  return (x + y) * a.length;
+};
+f(1, 2, "hello", true, 7) === 9;</pre></li></ul></article><article><h2>ES 6</h2><ul class="build"><li><pre>function f (x, y, ...a) {
+  return (x + y) * a.length;
+}
+f(1, 2, "hello", true, 7) === 9;</pre></li></ul></article><article><h1>Template literals</h1></article><article><h2>ES 5</h2><ul class="build"><li><pre>console.log(
+  "Hello " + firstName + ",\n" +
+  "greetings from GLaDOS"
+);</pre></li></ul></article><article><h2>ES 6</h2><ul class="build"><li><pre>console.log(`
+  Hello ${firstName},
+  greetings from GLaDOS
+`);</pre></li></ul></article><article><h2>Its a trap</h2><ul class="build"><li><pre>\n
+\tHello ${firstName},\n
+\tgreetings from GLaDOS\n</pre></li></ul></article><article><h2>It can be a trap</h2><ul class="build"><li><pre>console.log(dedent`
+  Hello ${firstName},
+  greetings from GLaDOS
+`);</pre></li></ul></article><article><h1>Iterators</h1></article><article><h2>ES 5</h2><ul class="build"><li><pre>function fibonacci(n) {
+  if (n <= 1) return 1;
+  return
+    fibonacci(n - 1) +
+    fibonacci(n - 2)
+  ;
+}</pre></li></ul></article><article><h2>ES 5</h2><ul class="build"><li><pre>function fibonacci(n) {
+  if (n <= 1) return 1;
+  return
+    fibonacci(n - 1) +
+    fibonacci(n - 2)
+  ;
+}</pre></li></ul></article><article><h2>ES 6 Iterable</h2><ul class="build"><li><pre>let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0, cur = 1
+    return {
+      next () {
+        [ pre, cur ] = [ cur, pre + cur ];
+        return { done: false, value: cur };
+      },
+    };
+  },
+};</pre></li></ul></article><article><h2>ES 6 Iterable Usage</h2><ul class="build"><li><pre>for (let n of fibonacci) {
+  if (n > 1000) break;
+  console.log(n);
+}</pre></li></ul></article><article><h1>Generators</h1></article><article><h2>ES 6 Iterable</h2><ul class="build"><li><pre>let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0, cur = 1
+    return {
+      next () {
+        [ pre, cur ] = [ cur, pre + cur ];
+        return { done: false, value: cur };
+      },
+    };
+  },
+};</pre></li></ul></article><article><h2>ES 6 Generator</h2><ul class="build"><li><pre>let fibonacci = {
+  *[Symbol.iterator]() {
+    let pre = 0, cur = 1
+    for (;;) {
+      [ pre, cur ] = [ cur, pre + cur ];
+      yield cur;
+    }
+  },
+};</pre></li></ul></article><article><h2>Generator vs Recursion</h2><ul class="build"><li>Recursion often looks more readable</li><li>Generator can easily use past values</li></ul></article><article><h2>Building an range array</h2><ul class="build"><li><pre>function range(start, end, step) {
+  const range = [];
+  while (start < end) {
+    range.push(start);
+    start += step;
+  }
+  return range;
+}
+for (let i of range(0, 10, 2)) {
+  console.log(i) // 0, 2, 4, 6, 8
+}</pre></li></ul></article><article><h2>ES 6 Generator</h2><ul class="build"><li><pre>function *range(start, end, step) {
+  while (start < end) {
+    yield start
+    start += step
+  }
+}
+for (let i of range(0, 10, 2)) {
+  console.log(i) // 0, 2, 4, 6, 8
+}</pre></li></ul></article><article><h2>Generator vs Array</h2><ul class="build"><li>Array can look more readable</li><li>Generator does not create unused values</li></ul></article><article><h2>Async Generator</h2><ul class="build"><li><pre>async function *getShifts() {}
+  while (true) {
+    this.buffer = await this.getNextPage();
+    if (this.buffer) {
+      while(this.buffer.length) {
+        yield this.buffer.shift();
+      }
+    } else { return false; }
+  }
+}</pre></li></ul></article><article><ul><li><pre>this.buffer = await this.getNextPage();
+if (this.buffer) {
+  while(this.buffer.length) {
+    yield this.buffer.shift();
+    if (this.buffer.length < 10) {
+      this.buffer.push(
+        ...await this.getNextPage()
+      );
+    }
+  }
+} else { return false; }</pre></li></ul></article><article class="image" data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg"><h1>&nbsp;</h1><h1>Thats it</h1></article><article><h2>Whats next?</h2><ul class="build"><li><a href="https://github.com/lukehoban/es6features/">List of new js features</a></li><li><a href="https://babeljs.io/repl/">Babel Playground</a></li><li><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a></li><li><a href="https://codepen.io/">CodePen</a></li></ul></article><article class="section"><h1>Questions?</h1></article></section><script src="node_modules/lets-talk-about--template/assets/scripts/main.js"></script></body></html>
