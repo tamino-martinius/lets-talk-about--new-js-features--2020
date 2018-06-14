@@ -226,5 +226,47 @@ html
               |     }
               |   },
               | };
+      article
+        h2 Generator vs Recursion
+        ul.build
+          li Recursion often looks more readable
+          li Generator can easily use past values
+      article
+        h2 Building an range array
+        ul.build
+          li
+            pre
+              | function range(start, end, step) {
+              |   const range = [];
+              |   while (start < end) {
+              |     range.push(start);
+              |     start += step;
+              |   }
+              |   return range;
+              | }
+
+              | for (let i of range(0, 10, 2)) {
+              |   console.log(i) // 0, 2, 4, 6, 8
+              | }
+      article
+        h2 ES 6 Generator
+        ul.build
+          li
+            pre
+              | function *range(start, end, step) {
+              |   while (start < end) {
+              |     yield start
+              |     start += step
+              |   }
+              | }
+
+              | for (let i of range(0, 10, 2)) {
+              |   console.log(i) // 0, 2, 4, 6, 8
+              | }
+      article
+        h2 Generator vs Array
+        ul.build
+          li Array can look more readable
+          li Generator does not create unused values
 
     script(src='node_modules/lets-talk-about--template/assets/scripts/main.js')
