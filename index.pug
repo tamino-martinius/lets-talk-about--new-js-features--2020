@@ -268,5 +268,36 @@ html
         ul.build
           li Array can look more readable
           li Generator does not create unused values
+      article
+        h2 Async Generator
+        ul.build
+          li
+            pre
+              | async function *getShifts() {}
+              |   while (true) {
+              |     this.buffer = await this.getNextPage();
+              |     if (this.buffer) {
+              |       while(this.buffer.length) {
+              |         yield this.buffer.shift();
+              |       }
+              |     } else { return false; }
+              |   }
+              | }
+      article
+        ul
+          li
+            pre
+              | this.buffer = await this.getNextPage();
+              | if (this.buffer) {
+              |   while(this.buffer.length) {
+              |     yield this.buffer.shift();
+              |     if (this.buffer.length < 10) {
+              |       this.buffer.push(
+              |         ...await this.getNextPage()
+              |       );
+              |     }
+              |   }
+              | } else { return false; }
+
 
     script(src='node_modules/lets-talk-about--template/assets/scripts/main.js')
