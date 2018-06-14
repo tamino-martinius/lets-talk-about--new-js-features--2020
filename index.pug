@@ -143,5 +143,56 @@ html
               |   Hello ${firstName},
               |   greetings from GLaDOS
               | `);
+      article
+        h1 Iterators
+      article
+        h2 ES 5
+        ul.build
+          li
+            pre
+              | function fibonacci(n) {
+              |   if (n <= 1) return 1;
+              |   return
+              |     fibonacci(n - 1) +
+              |     fibonacci(n - 2)
+              |   ;
+              | }
+      article
+        h2 ES 5
+        ul.build
+          li
+            pre
+              | function fibonacci(n) {
+              |   if (n <= 1) return 1;
+              |   return
+              |     fibonacci(n - 1) +
+              |     fibonacci(n - 2)
+              |   ;
+              | }
+      article
+        h2 ES 6 Iterable
+        ul.build
+          li
+            pre
+              | let fibonacci = {
+              |   [Symbol.iterator]() {
+              |     let pre = 0, cur = 1
+              |     return {
+              |       next () {
+              |         [ pre, cur ] = [ cur, pre + cur ];
+              |         return { done: false, value: cur };
+              |       },
+              |     };
+              |   },
+              | };
+      article
+        h2 ES 6 Iterable Usage
+        ul.build
+          li
+            pre
+              | for (let n of fibonacci) {
+              |   if (n > 1000) break;
+              |   console.log(n);
+              | }
 
     script(src='node_modules/lets-talk-about--template/assets/scripts/main.js')
