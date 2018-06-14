@@ -194,5 +194,37 @@ html
               |   if (n > 1000) break;
               |   console.log(n);
               | }
+      article
+        h1 Generators
+      article
+        h2 ES 6 Iterable
+        ul.build
+          li
+            pre
+              | let fibonacci = {
+              |   [Symbol.iterator]() {
+              |     let pre = 0, cur = 1
+              |     return {
+              |       next () {
+              |         [ pre, cur ] = [ cur, pre + cur ];
+              |         return { done: false, value: cur };
+              |       },
+              |     };
+              |   },
+              | };
+      article
+        h2 ES 6 Generator
+        ul.build
+          li
+            pre
+              | let fibonacci = {
+              |   *[Symbol.iterator]() {
+              |     let pre = 0, cur = 1
+              |     for (;;) {
+              |       [ pre, cur ] = [ cur, pre + cur ];
+              |       yield cur;
+              |     }
+              |   },
+              | };
 
     script(src='node_modules/lets-talk-about--template/assets/scripts/main.js')
