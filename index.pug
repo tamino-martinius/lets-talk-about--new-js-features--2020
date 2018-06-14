@@ -81,11 +81,31 @@ html
               | }
               |
               | work();
+      article
+        h1 Rest Parameter
+      article
+        h2 ES 5
+      article
+        h2 ES 5
+        ul.build
           li
-            i Italic
-          li Inline <em>Emphasis</em> and <i>Italic</i>
+            pre
+              | function f (x, y) {
+              |   var a = Array.prototype.slice.call(
+              |     arguments, 2
+              |   );
+              |   return (x + y) * a.length;
+              | };
+              | f(1, 2, "hello", true, 7) === 9;
+      article
+        h2 ES 6
+        ul.build
           li
-            a(href="#") Link
+            pre
+              | function f (x, y, ...a) {
+              |   return (x + y) * a.length;
+              | }
+              | f(1, 2, "hello", true, 7) === 9;
       article
         video(src="#" loop controls)
 
