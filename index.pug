@@ -60,6 +60,27 @@ html
           li
             pre
               | obj = values.map(v => ({ [v]: v }));
+      article
+        h1 Promises
+        ul.build
+          li
+            pre
+              | function timeout(duration = 0) {
+              |   return new Promise((resolve, reject) => {
+              |     setTimeout(resolve, duration);
+              |   });
+              | }
+      article
+        h1 Async & Await
+        ul.build
+          li
+            pre
+              | async function work() {
+              |   await timeout(10000);
+              |   console.log('done');
+              | }
+              |
+              | work();
           li
             i Italic
           li Inline <em>Emphasis</em> and <i>Italic</i>
