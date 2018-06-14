@@ -107,6 +107,41 @@ html
               | }
               | f(1, 2, "hello", true, 7) === 9;
       article
-        video(src="#" loop controls)
+        h1 Template literals
+      article
+        h2 ES 5
+        ul.build
+          li
+            pre
+              | console.log(
+              |   "Hello " + firstName + ",\n" +
+              |   "greetings from GLaDOS"
+              | );
+      article
+        h2 ES 6
+        ul.build
+          li
+            pre
+              | console.log(`
+              |   Hello ${firstName},
+              |   greetings from GLaDOS
+              | `);
+      article
+        h2 Its a trap
+        ul.build
+          li
+            pre
+              | \n
+              | \tHello ${firstName},\n
+              | \tgreetings from GLaDOS\n
+      article
+        h2 It can be a trap
+        ul.build
+          li
+            pre
+              | console.log(dedent`
+              |   Hello ${firstName},
+              |   greetings from GLaDOS
+              | `);
 
     script(src='node_modules/lets-talk-about--template/assets/scripts/main.js')
