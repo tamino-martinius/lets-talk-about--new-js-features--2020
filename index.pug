@@ -12,35 +12,54 @@ html
       article
         h1 New in JS
       article
-        ul
-          li Inline Image
-          li
-            img(src="node_modules/lets-talk-about--template/assets/memes/like-a-boss.jpg")
+        h1 Arrow functions
       article
-        h2 List
+        h2 Basic Example
         ul.build
-          li 1.
-          li 2.
-          li 3.
-          li 4.
+          li
+            pre
+              | odds  = evens.map(function (v) {
+              |   return v + 1;
+              | });
+          li
+            pre
+              | odds  = evens.map(v => v + 1);
       article
-        h2 Code
-        pre
-          | const code = 'without line numbers';
-        pre.linenums
-          | const code = 'with line numbers';
+        h2 Multiple parameters
+        ul.build
+          li
+            pre
+              | nums = numbers.map(function (v, i) {
+              |   return v + i;
+              | });
+          li
+            pre
+              | nums  = numbers.map((v, i) => v + i);
       article
-        h2 Code with highlights
-        pre.linenums.h1
-          | const line1 = 'normal'
-          | const line2 = 'highlight'
-          | const line3 = 'normal'
-      article.section
-        h1 New Section
+        h2 Multiple actions
+        ul.build
+          li
+            pre
+              | let shift = false;
+              | shiftPartial = numbers.map(v => {
+              |   shift = !shift;
+              |   return shift ? v + 1 : v;
+              | });
       article
+        h2 It's a Trap
+        ul.build
+          li
+            pre
+              | obj = values.map(v => { [v]: v });
+      article
+        h2 It can be a Trap
         ul
           li
-            em Emphasis
+            pre
+              | obj = values.map(v => { [v]: v });
+          li
+            pre
+              | obj = values.map(v => ({ [v]: v }));
           li
             i Italic
           li Inline <em>Emphasis</em> and <i>Italic</i>
