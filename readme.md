@@ -1,18 +1,13 @@
-# Lets talk about - Example
+# Lets talk about - SAM (Serverless Application Model)
 
-This is an example how to use the [Lets talk about template](https://github.com/tamino-martinius/lets-talk-about--template) as an dependency.
+[View Slides](https://lets-talk-about--new-js-features.taminomartinius.de)
 
-## How to modify and run
+## Links
 
-- Frok this repository
-- Configure your Theme with `styles.styl`.
-- Add backgrounds to `assets/bg/<num>.jpg`.
-- Set the number of background images with `styles.styl`.
-  You can also select if you want them ordered or random.
-- Add your slides to `index.pug`.
-- Install all dependencies with `npm install`.
-- Compile and preview the slides with `npm run start`.
+[List of new js features](https://github.com/lukehoban/es6features/)
 
-## Preview
+[Babel Playground](https://babeljs.io/repl/)
 
-[Demo Slides](http://tamino-martinius.github.io/lets-talk-about--example)
+[TypeScript Playground](https://www.typescriptlang.org/play/)
+
+[CodePen](https://codepen.io/)
