@@ -9,307 +9,67 @@ html
       link(href='styles.css'  rel='stylesheet' type='text/css')
   body
     section.slides.layout-regular.template-default
+      article.build
+        h2 Lets Talk about ...
+        h2 Whats new (and upcoming) in JS
+        h2 2019 Edition
+      article.section
+        h1 New
+      article.section
+        h1 Upcoming
+        h2 Upcoming
+      article.build
+        h1 Math
+        h2 Extensions
+      article.build
+        h2 Clamp
+        h3 Makes sure value stays in given range
+        pre
+          | Math.clamp(x, lower, upper);
+        pre
+          | Math.clamp(-10, 0, 100); // => 0
+        pre
+          | Math.clamp(1000, 0, 100); // => 100
+        pre
+          | Math.clamp(0, 10, 100); // => 10
+      article.build
+        h2 Scale
+        h3 Maps value from input range to output range
+        pre
+          | Math.scale(x, inLow, inHigh, outLow, outHigh);
+        pre
+          | Math.scale(0.25, 0, 1, 0, 100); // => 25
+        pre
+          | Math.scale(0.3325, 0, 1, -180, 180); // => -90
       article
-        h1 New in JS
+        h1 Observer
       article
-        h1 Arrow functions
-      article
-        h2 Basic Example
-        ul.build
-          li
-            pre
-              | odds  = evens.map(function (v) {
-              |   return v + 1;
-              | });
-          li
-            pre
-              | odds  = evens.map(v => v + 1);
-      article
-        h2 Multiple parameters
-        ul.build
-          li
-            pre
-              | nums = numbers.map(function (v, i) {
-              |   return v + i;
-              | });
-          li
-            pre
-              | nums  = numbers.map((v, i) => v + i);
-      article
-        h2 Multiple actions
-        ul.build
-          li
-            pre
-              | let shift = false;
-              | shiftPartial = numbers.map(v => {
-              |   shift = !shift;
-              |   return shift ? v + 1 : v;
-              | });
-      article
-        h2 It's a Trap
-        ul.build
-          li
-            pre
-              | obj = values.map(v => { [v]: v });
-      article
-        h2 It can be a Trap
-        ul
-          li
-            pre
-              | obj = values.map(v => { [v]: v });
-          li
-            pre
-              | obj = values.map(v => ({ [v]: v }));
-      article
-        h1 Promises
-        ul.build
-          li
-            pre
-              | function timeout(duration = 0) {
-              |   return new Promise((resolve, reject) => {
-              |     setTimeout(resolve, duration);
-              |   });
-              | }
-      article
-        h1 Async & Await
-        ul.build
-          li
-            pre
-              | async function work() {
-              |   await timeout(10000);
-              |   console.log('done');
-              | }
-              |
-              | work();
-      article
-        h1 Rest Parameter
-      article
-        h2 ES 5
-      article
-        h2 ES 5
-        ul.build
-          li
-            pre
-              | function f (x, y) {
-              |   var a = Array.prototype.slice.call(
-              |     arguments, 2
-              |   );
-              |   return (x + y) * a.length;
-              | };
-              | f(1, 2, "hello", true, 7) === 9;
-      article
-        h2 ES 6
-        ul.build
-          li
-            pre
-              | function f (x, y, ...a) {
-              |   return (x + y) * a.length;
-              | }
-              | f(1, 2, "hello", true, 7) === 9;
-      article
-        h1 Template literals
-      article
-        h2 ES 5
-        ul.build
-          li
-            pre
-              | console.log(
-              |   "Hello " + firstName + ",\n" +
-              |   "greetings from GLaDOS"
-              | );
-      article
-        h2 ES 6
-        ul.build
-          li
-            pre
-              | console.log(`
-              |   Hello ${firstName},
-              |   greetings from GLaDOS
-              | `);
-      article
-        h2 Its a trap
-        ul.build
-          li
-            pre
-              | \n
-              | \tHello ${firstName},\n
-              | \tgreetings from GLaDOS\n
-      article
-        h2 It can be a trap
-        ul.build
-          li
-            pre
-              | console.log(dedent`
-              |   Hello ${firstName},
-              |   greetings from GLaDOS
-              | `);
-      article
-        h1 Iterators
-      article
-        h2 ES 5
-        ul.build
-          li
-            pre
-              | function fibonacci(n) {
-              |   if (n <= 1) return 1;
-              |   return
-              |     fibonacci(n - 1) +
-              |     fibonacci(n - 2)
-              |   ;
-              | }
-      article
-        h2 ES 5
-        ul.build
-          li
-            pre
-              | function fibonacci(n) {
-              |   if (n <= 1) return 1;
-              |   return
-              |     fibonacci(n - 1) +
-              |     fibonacci(n - 2)
-              |   ;
-              | }
-      article
-        h2 ES 6 Iterable
-        ul.build
-          li
-            pre
-              | let fibonacci = {
-              |   [Symbol.iterator]() {
-              |     let pre = 0, cur = 1
-              |     return {
-              |       next () {
-              |         [ pre, cur ] = [ cur, pre + cur ];
-              |         return { done: false, value: cur };
-              |       },
-              |     };
-              |   },
-              | };
-      article
-        h2 ES 6 Iterable Usage
-        ul.build
-          li
-            pre
-              | for (let n of fibonacci) {
-              |   if (n > 1000) break;
-              |   console.log(n);
-              | }
-      article
-        h1 Generators
-      article
-        h2 ES 6 Iterable
-        ul.build
-          li
-            pre
-              | let fibonacci = {
-              |   [Symbol.iterator]() {
-              |     let pre = 0, cur = 1
-              |     return {
-              |       next () {
-              |         [ pre, cur ] = [ cur, pre + cur ];
-              |         return { done: false, value: cur };
-              |       },
-              |     };
-              |   },
-              | };
-      article
-        h2 ES 6 Generator
-        ul.build
-          li
-            pre
-              | let fibonacci = {
-              |   *[Symbol.iterator]() {
-              |     let pre = 0, cur = 1
-              |     for (;;) {
-              |       [ pre, cur ] = [ cur, pre + cur ];
-              |       yield cur;
-              |     }
-              |   },
-              | };
-      article
-        h2 ES 6 Generator
-        ul
-          li
-            pre
-              | let *fibonacci = {
-              |   let pre = 0, cur = 1
-              |   for (;;) {
-              |     [ pre, cur ] = [ cur, pre + cur ];
-              |     yield cur;
-              |   }
-              | };
-      article
-        h2 Generator vs Recursion
-        ul.build
-          li Recursion often looks more readable
-          li Generator can easily use past values
-      article
-        h2 Building an range array
-        ul.build
-          li
-            pre
-              | function range(start, end, step) {
-              |   const range = [];
-              |   while (start < end) {
-              |     range.push(start);
-              |     start += step;
-              |   }
-              |   return range;
-              | }
+        h2 Set / WeakSet
+        h2 Map / WeakMap
+        h3 .of/.from
+      article.build
+        h1 Promise
+        h2 Extensions
+      article.build
+        h2 try / attempt
+        h3 Converts function to promise (and sync errors to async)
+        pre
+          | promise = new Promise((resolve, reject) => {
+          |   throw new Error('i failed');
+          | });
+          | promise.catch(console.log); // => i failed
+        pre
+          | promise = Promise.try(() => {
+          |   throw new Error('i failed');
+          | });
+          | promise.catch(console.log); // => i failed
+        pre
+          | promise = Promise.try(() => {
+          |   return 'result';
+          | });
+          | promise.then(console.log); // => result
 
-              | for (let i of range(0, 10, 2)) {
-              |   console.log(i) // 0, 2, 4, 6, 8
-              | }
-      article
-        h2 ES 6 Generator
-        ul.build
-          li
-            pre
-              | function *range(start, end, step) {
-              |   while (start < end) {
-              |     yield start
-              |     start += step
-              |   }
-              | }
 
-              | for (let i of range(0, 10, 2)) {
-              |   console.log(i) // 0, 2, 4, 6, 8
-              | }
-      article
-        h2 Generator vs Array
-        ul.build
-          li Array can look more readable
-          li Generator does not create unused values
-      article
-        h2 Async Generator
-        ul.build
-          li
-            pre
-              | async function *getShifts() {}
-              |   while (true) {
-              |     this.buffer = await this.getNextPage();
-              |     if (this.buffer) {
-              |       while(this.buffer.length) {
-              |         yield this.buffer.shift();
-              |       }
-              |     } else { return false; }
-              |   }
-              | }
-      article
-        ul
-          li
-            pre
-              | this.buffer = await this.getNextPage();
-              | if (this.buffer) {
-              |   while(this.buffer.length) {
-              |     yield this.buffer.shift();
-              |     if (this.buffer.length < 10) {
-              |       this.buffer.push(
-              |         ...await this.getNextPage()
-              |       );
-              |     }
-              |   }
-              | } else { return false; }
 
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
