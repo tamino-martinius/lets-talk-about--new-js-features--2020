@@ -25,6 +25,46 @@ html
           li Stage 4: Finished (Shipping)
       article.section
         h2 Stage 0 (Strawperson)
+      article
+        h1 Nested Import
+      article.build
+        h2 Currently
+        pre
+          | import { strictEqual } from 'assert';
+          | import { check as checkC } from './client.js';
+          | import { check as checkS } from './server.js';
+          |
+          | describe('fancy feature #5', () => {
+          |   it('should work on the client', () => {
+          |     strictEqual(checkC(), 'client ok');
+          |   });
+          |
+          |   it('should work on the server', () => {
+          |     strictEqual(checkS(), 'server ok');
+          |   });
+          | });
+      article.build
+        h2 With nested imports
+        pre
+          | describe('fancy feature #5', () => {
+          |   import { strictEqual } from 'assert';
+          |
+          |   it('should work on the client', () => {
+          |     import { check } from './client.js';
+          |     strictEqual(check(), 'client ok');
+          |   });
+          |
+          |   it('should work on the server', () => {
+          |     import { check } from './server.js';
+          |     strictEqual(check(), 'server ok');
+          |   });
+          | });
+      article
+        h2 Advantages
+        ul.build
+          li Lazy evaluation
+          li Scoped to enclosing block
+          li Backwards compatible
       article.build
         h1 Math
         h2 Extensions
