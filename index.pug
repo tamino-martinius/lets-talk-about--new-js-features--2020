@@ -347,6 +347,43 @@ html
           | var street = user?.address?.street
         pre
           | iterator.return?.() // manually close an iterator
+      article.build
+        h1 Nullish
+        h2 Coalescing
+      article.build
+        h2 current
+        pre
+          | const undefinedValue =
+          |   response.settings?.undefinedValue
+          |   || 'some other default'
+          | ; // result: 'some other default'
+        pre
+          | const nullValue =
+          |   response.settings?.nullValue
+          |   || 'some other default'
+          | ; // result: 'some other default'
+      article.build
+        h2 current problems
+        pre
+          | response.settings?.showSplashScreen || true
+        pre
+          | // False evaluates to false, result: true
+        pre
+          | response.settings?.animationDuration || 300;
+        pre
+          | // 0 evaluates to false, result: 300
+        pre
+          | response.settings?.headerText || 'Hello, world!'
+        pre
+          | // '' evaluates to false, result: 'Hello, world!'
+      article.build
+        h2 Nullish Coalescing
+        pre
+          | response.settings?.showSplashScreen ?? true
+        pre
+          | response.settings?.animationDuration ?? 300;
+        pre
+          | response.settings?.headerText ?? 'Hello, world!'
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
