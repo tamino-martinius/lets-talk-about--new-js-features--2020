@@ -27,11 +27,11 @@ html
         h1 Nested Import
       article.build
         h2 Currently
-        pre
+        pre(style='line-height: 3vw')
           | import { strictEqual } from 'assert';
           | import { check as checkC } from './client.js';
           | import { check as checkS } from './server.js';
-          |
+        pre(style='line-height: 3vw')
           | describe('fancy feature #5', () => {
           |   it('should work on the client', () => {
           |     strictEqual(checkC(), 'client ok');
@@ -43,7 +43,7 @@ html
           | });
       article.build
         h2 With nested imports
-        pre
+        pre(style='line-height: 3vw')
           | describe('fancy feature #5', () => {
           |   import { strictEqual } from 'assert';
           |
@@ -84,20 +84,20 @@ html
         pre
           | Math.clamp(x, lower, upper);
         pre
-          | Math.clamp(-10, 0, 100); // => 0
+          | Math.clamp(-10, 0, 100);  // → 0
         pre
-          | Math.clamp(1000, 0, 100); // => 100
+          | Math.clamp(1000, 0, 100); // → 100
         pre
-          | Math.clamp(0, 10, 100); // => 10
+          | Math.clamp(0, 10, 100);   // → 10
       article.build
         h2 Scale
         h3 Maps value from input range to output range
         pre
           | Math.scale(x, inLow, inHigh, outLow, outHigh);
         pre
-          | Math.scale(0.25, 0, 1, 0, 100); // => 25
+          | Math.scale(0.25, 0, 1, 0, 100);    // → 25
         pre
-          | Math.scale(0.25, 0, 1, -180, 180); // => -90
+          | Math.scale(0.25, 0, 1, -180, 180); // → -90
       article.build
         h1 Iterator
         h2 Extensions
@@ -153,15 +153,15 @@ html
           |   return () => clearTimeout(timer);
           | });
       article.build
-        h2 Observable.subscribe
+        h2 Observable.prototype.subscribe
         pre
           | let subscription = observable.subscribe(
           |   x => console.log(x),
-          |   err => console.log(`Finished with error: ${ err }`),
+          |   err => console.log(`Failed: ${err}`),
           |   () => console.log('Finished')
           | );
       article.build
-        h2 Observable.forEach
+        h2 Observable.prototype.forEach
         pre
           | observable.forEach(x => {
           |   console.log(`Received value: ${ x }`);
@@ -171,7 +171,7 @@ html
           |   console.log(`Finished with error: ${ err }`);
           | })
       article.build
-        h2 Observable.filter
+        h2 Observable.prototype.filter
         pre
           | observable.filter(callback)
           | Observable.of(1, 2, 3).filter(value => {
@@ -182,7 +182,7 @@ html
         pre
           | // 3
       article.build
-        h2 Observable.map
+        h2 Observable.prototype.map
         pre
           | Observable.of(1, 2, 3).map(value => {
           |   return value * 2;
@@ -194,7 +194,7 @@ html
           | // 4
           | // 6
       article.build
-        h2 Observable.reduce
+        h2 Observable.prototype.reduce
         pre
           | Observable.of(1, 2, 3).reduce((prev, curr) => {
           |   return prev + curr;
@@ -204,7 +204,7 @@ html
         pre
           | // 6
       article.build
-        h2 Observable.concat
+        h2 Observable.prototype.concat
         pre
           | Observable.of(1, 2, 3).concat(
           |   Observable.of(4, 5, 6),
@@ -217,29 +217,30 @@ html
       article.build
         h1 Promise
         h2 Extensions
-      article.build
-        h1 try / attempt
-        h2 Converts function to promise
-        h2 and sync errors to async
+      article
+        h2 try / attempt
+        ul.build
+          li Converts function to promise
+          li and sync errors to async
       article.build
         h2 current
         pre
           | promise = new Promise((resolve, reject) => {
           |   throw new Error('i failed');
           | });
-          | promise.catch(console.log); // => i failed
+          | promise.catch(console.log); // → i failed
       article.build
         h2 Promise.try
         pre
           | promise = Promise.try(() => {
           |   throw new Error('i failed');
           | });
-          | promise.catch(console.log); // => i failed
+          | promise.catch(console.log); // → i failed
         pre
           | promise = Promise.try(() => {
           |   return 'result';
           | });
-          | promise.then(console.log); // => result
+          | promise.then(console.log);  // → result
       article
         h2 Promise.all
         h3 (ES 2015)
