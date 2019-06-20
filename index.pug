@@ -281,6 +281,17 @@ html
           |     ;
           |   }
           | }
+      article.build
+        h2 Function implementation hiding
+        pre
+          | Function.prototype.toString
+        pre
+          | Error.prototype.stack
+        pre
+          | function foo() {
+          |   "hide implementation";
+          |   // ...
+          | }
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
