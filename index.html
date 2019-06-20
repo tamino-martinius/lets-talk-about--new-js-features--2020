@@ -1,8 +1,6 @@
-<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2019)</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2019 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Playground/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h1>Nested Import</h1></article><article class="build"><h2>Currently</h2><pre>import { strictEqual } from 'assert';
+<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2019)</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2019 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Playground/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h1>Nested Import</h1></article><article class="build"><h2>Currently</h2><pre style="line-height: 3vw">import { strictEqual } from 'assert';
 import { check as checkC } from './client.js';
-import { check as checkS } from './server.js';
-
-describe('fancy feature #5', () => {
+import { check as checkS } from './server.js';</pre><pre style="line-height: 3vw">describe('fancy feature #5', () => {
   it('should work on the client', () => {
     strictEqual(checkC(), 'client ok');
   });
@@ -10,7 +8,7 @@ describe('fancy feature #5', () => {
   it('should work on the server', () => {
     strictEqual(checkS(), 'server ok');
   });
-});</pre></article><article class="build"><h2>With nested imports</h2><pre>describe('fancy feature #5', () => {
+});</pre></article><article class="build"><h2>With nested imports</h2><pre style="line-height: 3vw">describe('fancy feature #5', () => {
   import { strictEqual } from 'assert';
 
   it('should work on the client', () => {
@@ -27,7 +25,7 @@ describe('fancy feature #5', () => {
 )) {
   // do something with each value
   if(i >= limit) break;
-}</pre></article><article class="build"><h2>Clamp</h2><h3>Makes sure value stays in given range</h3><pre>Math.clamp(x, lower, upper);</pre><pre>Math.clamp(-10, 0, 100); // => 0</pre><pre>Math.clamp(1000, 0, 100); // => 100</pre><pre>Math.clamp(0, 10, 100); // => 10</pre></article><article class="build"><h2>Scale</h2><h3>Maps value from input range to output range</h3><pre>Math.scale(x, inLow, inHigh, outLow, outHigh);</pre><pre>Math.scale(0.25, 0, 1, 0, 100); // => 25</pre><pre>Math.scale(0.25, 0, 1, -180, 180); // => -90</pre></article><article class="build"><h1>Iterator</h1><h2>Extensions</h2></article><article class="build"><h2>Sample Iterator</h2><pre>function* naturals() {
+}</pre></article><article class="build"><h2>Clamp</h2><h3>Makes sure value stays in given range</h3><pre>Math.clamp(x, lower, upper);</pre><pre>Math.clamp(-10, 0, 100);  // → 0</pre><pre>Math.clamp(1000, 0, 100); // → 100</pre><pre>Math.clamp(0, 10, 100);   // → 10</pre></article><article class="build"><h2>Scale</h2><h3>Maps value from input range to output range</h3><pre>Math.scale(x, inLow, inHigh, outLow, outHigh);</pre><pre>Math.scale(0.25, 0, 1, 0, 100);    // → 25</pre><pre>Math.scale(0.25, 0, 1, -180, 180); // → -90</pre></article><article class="build"><h1>Iterator</h1><h2>Extensions</h2></article><article class="build"><h2>Sample Iterator</h2><pre>function* naturals() {
   let i = 0;
   while (true) {
     yield i;
@@ -50,46 +48,46 @@ describe('fancy feature #5', () => {
 
   // Return cleanup function
   return () => clearTimeout(timer);
-});</pre></article><article class="build"><h2>Observable.subscribe</h2><pre>let subscription = observable.subscribe(
+});</pre></article><article class="build"><h2>Observable.prototype.subscribe</h2><pre>let subscription = observable.subscribe(
   x => console.log(x),
-  err => console.log(`Finished with error: ${ err }`),
+  err => console.log(`Failed: ${err}`),
   () => console.log('Finished')
-);</pre></article><article class="build"><h2>Observable.forEach</h2><pre>observable.forEach(x => {
+);</pre></article><article class="build"><h2>Observable.prototype.forEach</h2><pre>observable.forEach(x => {
   console.log(`Received value: ${ x }`);
 }).then(() => {
   console.log('Finished successfully')
 }).catch(err => {
   console.log(`Finished with error: ${ err }`);
-})</pre></article><article class="build"><h2>Observable.filter</h2><pre>observable.filter(callback)
+})</pre></article><article class="build"><h2>Observable.prototype.filter</h2><pre>observable.filter(callback)
 Observable.of(1, 2, 3).filter(value => {
   return value > 2;
 }).subscribe(value => {
   console.log(value);
-});</pre><pre>// 3</pre></article><article class="build"><h2>Observable.map</h2><pre>Observable.of(1, 2, 3).map(value => {
+});</pre><pre>// 3</pre></article><article class="build"><h2>Observable.prototype.map</h2><pre>Observable.of(1, 2, 3).map(value => {
   return value * 2;
 }).subscribe(value => {
   console.log(value);
 });</pre><pre>// 2
 // 4
-// 6</pre></article><article class="build"><h2>Observable.reduce</h2><pre>Observable.of(1, 2, 3).reduce((prev, curr) => {
+// 6</pre></article><article class="build"><h2>Observable.prototype.reduce</h2><pre>Observable.of(1, 2, 3).reduce((prev, curr) => {
   return prev + curr;
 }).subscribe(result => {
   console.log(result);
-});</pre><pre>// 6</pre></article><article class="build"><h2>Observable.concat</h2><pre>Observable.of(1, 2, 3).concat(
+});</pre><pre>// 6</pre></article><article class="build"><h2>Observable.prototype.concat</h2><pre>Observable.of(1, 2, 3).concat(
   Observable.of(4, 5, 6),
   Observable.of(7, 8, 9)
 ).subscribe(result => {
   console.log(result);
-});</pre><pre>// 1, 2, 3, 4, 5, 6, 7, 8, 9</pre></article><article class="build"><h1>Promise</h1><h2>Extensions</h2></article><article class="build"><h1>try / attempt</h1><h2>Converts function to promise</h2><h2>and sync errors to async</h2></article><article class="build"><h2>current</h2><pre>promise = new Promise((resolve, reject) => {
+});</pre><pre>// 1, 2, 3, 4, 5, 6, 7, 8, 9</pre></article><article class="build"><h1>Promise</h1><h2>Extensions</h2></article><article><h2>try / attempt</h2><ul class="build"><li>Converts function to promise</li><li>and sync errors to async</li></ul></article><article class="build"><h2>current</h2><pre>promise = new Promise((resolve, reject) => {
   throw new Error('i failed');
 });
-promise.catch(console.log); // => i failed</pre></article><article class="build"><h2>Promise.try</h2><pre>promise = Promise.try(() => {
+promise.catch(console.log); // → i failed</pre></article><article class="build"><h2>Promise.try</h2><pre>promise = Promise.try(() => {
   throw new Error('i failed');
 });
-promise.catch(console.log); // => i failed</pre><pre>promise = Promise.try(() => {
+promise.catch(console.log); // → i failed</pre><pre>promise = Promise.try(() => {
   return 'result';
 });
-promise.then(console.log); // => result</pre></article><article><h2>Promise.all</h2><h3>(ES 2015)</h3><ul class="build"><li>returns all results as array</li><li>short-circuits on reject</li></ul></article><article><h2>Promise.race</h2><h3>(ES 2015)</h3><ul class="build"><li>resolves first settled promise</li><li>rejects if first settled promise rejects</li></ul></article><article><h2>Promise.any</h2><ul class="build"><li>rejects when no promise resolves</li><li>short-circuits on resolve</li></ul></article><article><h2>Promise.allSettled</h2><ul class="build"><li>returns all results as array</li><li>does not short circuit</li></ul></article><article class="section"><h2>Stage 2 (Draft)</h2></article><article><h1>Decorators</h1></article><article class="build"><h1>Temporal</h1><h2>(like native MomentJS)</h2></article><article class="build"><h2>Classes</h2><pre>Instant        // Point in time</pre><pre>OffsetDateTime // Offset from UTC (+01:00)</pre><pre>CivilDateTime  // Offset from Calendar</pre><pre>ZonedDateTime  // Offset + Timezone (Europe/Rome)</pre></article><article class="build"><h1>(Weak)Set</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>filter</li><li>map</li><li>find</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>addAll(... elements)</li><li>deleteAll(... elements)</li><li>intersection</li><li>union</li><li>difference</li><li>...</li></ul></article><article><h2>Comparing</h2><ul class="build"><li>isSubsetOf</li><li>isDisjointFrom</li><li>isSupersetOf</li></ul></article><article class="build"><h1>(Weak)Map</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>of / from</li><li>filter</li><li>mapKeys / mapValues</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>deleteAll</li><li>merge</li><li>update</li></ul></article><article><h2>Aggregation</h2><ul class="build"><li>groupBy</li><li>keyBy</li></ul></article><article class="build"><h1>throw</h1><h2>in expression contexts</h2></article><article class="build"><h2>Parameter initializers</h2><pre>function save(filename =
+promise.then(console.log);  // → result</pre></article><article><h2>Promise.all</h2><h3>(ES 2015)</h3><ul class="build"><li>returns all results as array</li><li>short-circuits on reject</li></ul></article><article><h2>Promise.race</h2><h3>(ES 2015)</h3><ul class="build"><li>resolves first settled promise</li><li>rejects if first settled promise rejects</li></ul></article><article><h2>Promise.any</h2><ul class="build"><li>rejects when no promise resolves</li><li>short-circuits on resolve</li></ul></article><article><h2>Promise.allSettled</h2><ul class="build"><li>returns all results as array</li><li>does not short circuit</li></ul></article><article class="section"><h2>Stage 2 (Draft)</h2></article><article><h1>Decorators</h1></article><article class="build"><h1>Temporal</h1><h2>(like native MomentJS)</h2></article><article class="build"><h2>Classes</h2><pre>Instant        // Point in time</pre><pre>OffsetDateTime // Offset from UTC (+01:00)</pre><pre>CivilDateTime  // Offset from Calendar</pre><pre>ZonedDateTime  // Offset + Timezone (Europe/Rome)</pre></article><article class="build"><h1>(Weak)Set</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>filter</li><li>map</li><li>find</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>addAll(... elements)</li><li>deleteAll(... elements)</li><li>intersection</li><li>union</li><li>difference</li><li>...</li></ul></article><article><h2>Comparing</h2><ul class="build"><li>isSubsetOf</li><li>isDisjointFrom</li><li>isSupersetOf</li></ul></article><article class="build"><h1>(Weak)Map</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>of / from</li><li>filter</li><li>mapKeys / mapValues</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>deleteAll</li><li>merge</li><li>update</li></ul></article><article><h2>Aggregation</h2><ul class="build"><li>groupBy</li><li>keyBy</li></ul></article><article class="build"><h1>throw</h1><h2>in expression contexts</h2></article><article class="build"><h2>Parameter initializers</h2><pre>function save(filename =
   throw new TypeError('Argument required')
 ) {}</pre></article><article class="build"><h2>Arrow function bodies</h2><pre>lint(ast, {
   with: () => throw new Error(
@@ -146,4 +144,26 @@ let amount = 1_234_500; // 1,234,500</pre></article><article class="build"><h2>N
       default: throw new RangeError("unknown color");
     }
   }
-}</pre></article><article class="section"><h2>Stage 4 (Shipping)</h2></article><article class="build"><h1>Array</h1><h2>Extensions</h2><ul class="build"><li>flat</li><li>flatMap</li></ul></article><article class="build"><h1>String</h1><h2>Extensions</h2><ul class="build"><li>trimStart</li><li>trimEnd</li></ul></article><article class="build"><h2>Optional catch binding</h2><pre>try { ... } catch (unused) { ... }</pre><pre>try { ... } catch { ... }</pre></article><article class="image" data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg"><h1>&nbsp;</h1><h1>Thats it</h1></article><article><h2>Whats next?</h2><ul class="build"><li><a href="https://github.com/tc39/proposals">List of proposals</a></li><li><a href="https://babeljs.io/repl/">Babel Playground</a></li><li><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a></li><li><a href="https://codepen.io/">CodePen</a></li></ul></article><article class="section"><h1>Questions?</h1></article></section><script src="node_modules/lets-talk-about--template/assets/scripts/main.js"></script></body></html>
+}</pre></article><article class="section"><h2>Stage 4 (Shipping)</h2></article><article class="build"><h1>Intl</h1><h2>Internationalization aka I18l</h2></article><article><h2>Langauge dependent formatting for</h2><ul class="build"><li>Dates / Times</li><li>Numbers</li><li>Plural Rules</li><li>Collator (comparing)</li></ul></article><article class="build"><h2>Intl.DateTimeFormat</h2><pre>const DateFormat = Intl.DateTimeFormat;</pre><pre>new DateFormat('en-US').format(date);
+// → '12/20/2019'</pre><pre>new DateFormat('en-GB').format(date);
+// → '20/12/2019'</pre><pre>// Include a fallback language
+new DateFormat(['foo', 'de']).format(date)
+// → '20.12.2019'</pre></article><article class="build"><h2>Intl.NumberFormat</h2><pre>new Intl.NumberFormat('de-DE', {
+  style: 'currency', currency: 'EUR'
+}).format(number); // → '123.456,79 €'</pre><pre>// the Japanese yen doesn't use a minor unit
+new Intl.NumberFormat('ja-JP', {
+  style: 'currency', currency: 'JPY'
+}).format(number); // → '￥123,457'</pre><pre>new Intl.NumberFormat('en-IN', {
+  maximumSignificantDigits: 3
+}).format(number); // → '1,23,000'</pre></article><article class="build"><h2>Intl.PluralRules</h2><pre>new Intl.PluralRules('en-US').select(0);
+// → 'other'</pre><pre>new Intl.PluralRules('en-US').select(1);
+// → 'one'</pre><pre>new Intl.PluralRules('en-US').select(2);
+// → 'other'</pre></article><article class="build"><h2>Intl.Collator</h2><pre>function letterSort(lang, letters) {
+  letters.sort(new Intl.Collator(lang).compare);
+  return letters;
+}</pre><pre>console.log(letterSort('de', ['a','z','ä']));
+// expected output: Array ["a", "ä", "z"]</pre><pre>console.log(letterSort('sv', ['a','z','ä']));
+// expected output: Array ["a", "z", "ä"]</pre></article><article class="build"><h1>Array</h1><h2>Extensions</h2></article><article class="build"><h2>Array.prototype.flat</h2><pre>const array = [1, [2, [3, [4]]]];</pre><pre>array.flat();         // → [1, 2, [3, [4]]];</pre><pre>array.flat(2);        // → [1, 2, 3, [4]];</pre><pre>array.flat(Infinity); // → [1, 2, 3, 4];</pre></article><article class="build"><h2>Array.prototype.flatMap</h2><pre>const dup = (x) => [x, x];</pre><pre>[3, 4].map(dup);        // → [[3, 3], [4, 4]]</pre><pre>[3, 4].map(dup).flat(); // 🐌 → [3, 3, 4, 4]</pre><pre>[3, 4].flatMap(dup);    // 🚀 → [3, 3, 4, 4]</pre></article><article class="build"><h1>Object</h1><h2>Extensions</h2></article><article class="build"><h2>Object.prototype.entities</h2><pre>const object = { x: 42, y: 50 };
+const entries = Object.entries(object);
+// → [['x', 42], ['y', 50]]</pre><h2><br/>Object.prototype.fromEntities</h2><pre>const result = Object.fromEntries(entries);
+// → { x: 42, y: 50 }</pre></article><article class="build"><h2>Optional catch binding</h2><pre>try { ... } catch (unused) { ... }</pre><pre>try { ... } catch { ... }</pre></article><article class="image" data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg"><h1>&nbsp;</h1><h1>Thats it</h1></article><article><h2>Whats next?</h2><ul class="build"><li><a href="https://v8.dev/features">List of features added lately to v8</a></li><li><a href="https://github.com/tc39/proposals">List of proposals</a></li><li><a href="https://babeljs.io/repl/">Babel Playground</a></li><li><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a></li><li><a href="https://codepen.io/">CodePen</a></li></ul></article><article class="section"><h1>Questions?</h1></article></section><script src="node_modules/lets-talk-about--template/assets/scripts/main.js"></script></body></html>
