@@ -137,9 +137,85 @@ html
           li min / max
           li find
           li skip / take
-      article
-        h1 Observer
-        //- ! TODO !
+      article.build
+        h1 Observable
+        h2 Mix of Promise and Iterator
+      article.build
+        h2 Create Observable
+        pre
+          | let observable = new Observable(observer => {
+          |   const {next, error, complete } = observer;
+          |   // Emit a single value after 1 second
+          |   let timer = setTimeout(() => {
+          |     next('hello');
+          |     complete();
+          |   }, 1000);
+          |
+          |   // Return cleanup function
+          |   return () => clearTimeout(timer);
+          | });
+      article.build
+        h2 Observable.subscribe
+        pre
+          | let subscription = observable.subscribe(
+          |   x => console.log(x),
+          |   err => console.log(`Finished with error: ${ err }`),
+          |   () => console.log('Finished')
+          | );
+      article.build
+        h2 Observable.forEach
+        pre
+          | observable.forEach(x => {
+          |   console.log(`Received value: ${ x }`);
+          | }).then(() => {
+          |   console.log('Finished successfully')
+          | }).catch(err => {
+          |   console.log(`Finished with error: ${ err }`);
+          | })
+      article.build
+        h2 Observable.filter
+        pre
+          | observable.filter(callback)
+          | Observable.of(1, 2, 3).filter(value => {
+          |   return value > 2;
+          | }).subscribe(value => {
+          |   console.log(value);
+          | });
+        pre
+          | // 3
+      article.build
+        h2 Observable.map
+        pre
+          | Observable.of(1, 2, 3).map(value => {
+          |   return value * 2;
+          | }).subscribe(value => {
+          |   console.log(value);
+          | });
+        pre
+          | // 2
+          | // 4
+          | // 6
+      article.build
+        h2 Observable.reduce
+        pre
+          | Observable.of(1, 2, 3).reduce((prev, curr) => {
+          |   return prev + curr;
+          | }).subscribe(result => {
+          |   console.log(result);
+          | });
+        pre
+          | // 6
+      article.build
+        h2 Observable.concat
+        pre
+          | Observable.of(1, 2, 3).concat(
+          |   Observable.of(4, 5, 6),
+          |   Observable.of(7, 8, 9)
+          | ).subscribe(result => {
+          |   console.log(result);
+          | });
+        pre
+          | // 1, 2, 3, 4, 5, 6, 7, 8, 9
       article.build
         h1 Promise
         h2 Extensions
