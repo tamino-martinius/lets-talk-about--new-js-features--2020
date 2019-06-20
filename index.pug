@@ -386,6 +386,44 @@ html
           | response.settings?.headerText ?? 'Hello, world!'
       article.section
         h2 Stage 3 (Candidate)
+      article.build
+        h1 Numeric
+        h2 Separators
+      article.build
+        h2 current
+        pre
+          | 1000000000
+          | 101475938.38
+          | // Is this a billion? a hundred millions? Ten millions?
+        pre
+          | let fee = 12300;
+          | // is this 12,300? Or 123, because it's in cents?
+        pre
+          | let amount = 1234500;
+          | // is this 1,234,500? Or cents, hence 12,345?
+          | // Or financial, 4-fixed 123.45?
+      article.build
+        h2 Numeric Separators
+        pre
+          | 1_000_000_000           // Ah, so a billion
+          | 101_475_938.38          // hundreds of millions
+        pre
+          | let fee = 123_00;       // $123 (12300 cents)
+          | let fee = 12_300;       // $12,300 (thats much)
+        pre
+          | let amount = 12345_00;  // 12,345 (1234500 cents)
+          | let amount = 123_4500;  // 123.45 (4-fixed fin.)
+          | let amount = 1_234_500; // 1,234,500
+      article.build
+        h2 Numeric Separators
+        pre
+          | 0.000_001 // fractions
+        pre
+          | 1e10_000  // exponents
+        pre
+          | let nibbles = 0b1010_0001_1000_0101; // binary
+        pre
+          | let brandColor = 0x44_BB_44; // hex (colors)
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
