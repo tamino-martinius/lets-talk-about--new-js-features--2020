@@ -100,8 +100,43 @@ html
           | Math.scale(0.25, 0, 1, 0, 100); // => 25
         pre
           | Math.scale(0.25, 0, 1, -180, 180); // => -90
+      article.build
+        h1 Iterator
+        h2 Extensions
+      article.build
+        h2 Sample Iterator
+        pre
+          | function* naturals() {
+          |   let i = 0;
+          |   while (true) {
+          |     yield i;
+          |     i += 1;
+          |   }
+          | }
+        pre
+          | for (const i of naturals) {
+          |   // do something with each value
+          |   if(i >= limit) break;
+          | }
+      article.build
+        h2 Filter
+        h3 Returns iterator which skips some values of source iterator
+        pre
+          | const evens = naturals()
+          |   .filter((n) => n % 2 === 0);
+        pre
+          | for (const i of evens) {
+          |   // do something with each value
+          |   if(i >= limit) break;
+          | }
       article
-        h1 Observer
+        h2 Other extensions
+        ul.build
+          li map
+          li count
+          li min / max
+          li find
+          li skip / take
       article
         h2 Set / WeakSet
         h2 Map / WeakMap
