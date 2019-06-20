@@ -330,6 +330,23 @@ html
           | const withSpaces = query.replace(/\+/g, ' ');
         pre
           | const withSpaces = query.replaceAll('+', ' ');
+      article.build
+        h1 Optional
+        h2 Chaining
+      article.build
+        h2 Current
+        pre
+          | var query = 'input[name=foo]';
+          | var $input = $form.querySelector(query)
+          | var value = $input ? $input.value : undefined
+      article.build
+        h2 With optional chaining
+        pre
+          | var fooValue = $form.querySelector(query)?.value
+        pre
+          | var street = user?.address?.street
+        pre
+          | iterator.return?.() // manually close an iterator
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
