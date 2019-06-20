@@ -319,6 +319,17 @@ html
           |
           | f() === 17 // true
           | Error.prototype.stack
+      article.build
+        h1 String
+        h2 Extensions
+      article.build
+        h2 String.replaceAll
+        pre
+          | const query = 'q=query+string+parameters';
+        pre
+          | const withSpaces = query.replace(/\+/g, ' ');
+        pre
+          | const withSpaces = query.replaceAll('+', ' ');
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
