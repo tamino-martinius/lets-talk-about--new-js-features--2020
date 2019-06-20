@@ -608,11 +608,26 @@ html
       article.build
         h1 Array
         h2 Extensions
-        ul.build
-          li flat
-          li flatMap
       article.build
-        h1 String
+        h2 Array.prototype.flat
+        pre
+          | const array = [1, [2, [3, [4]]]];
+        pre
+          | array.flat();         // → [1, 2, [3, [4]]];
+        pre
+          | array.flat(2);        // → [1, 2, 3, [4]];
+        pre
+          | array.flat(Infinity); // → [1, 2, 3, 4];
+      article.build
+        h2 Array.prototype.flatMap
+        pre
+          | const dup = (x) => [x, x];
+        pre
+          | [3, 4].map(dup);        // → [[3, 3], [4, 4]]
+        pre
+          | [3, 4].map(dup).flat(); // 🐌 → [3, 3, 4, 4]
+        pre
+          | [3, 4].flatMap(dup);    // 🚀 → [3, 3, 4, 4]
         h2 Extensions
         ul.build
           li trimStart
