@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2019)</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2019 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Playground/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h1>Nested Import</h1></article><article class="build"><h2>Currently</h2><pre style="line-height: 3vw">import { strictEqual } from 'assert';
+<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2019)</title><meta charset="utf-8"><script>window.PERMANENT_URL_PREFIX = window.PERMANENT_URL_PREFIX || 'node_modules/lets-talk-about--template/assets/vendor/';</script><script src="node_modules/lets-talk-about--template/assets/vendor/slides.js"></script><link href="styles.css" rel="stylesheet" type="text/css"></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2019 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Nothing/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h1>Nested Import</h1></article><article class="build"><h2>Currently</h2><pre style="line-height: 3vw">import { strictEqual } from 'assert';
 import { check as checkC } from './client.js';
 import { check as checkS } from './server.js';</pre><pre style="line-height: 3vw">describe('fancy feature #5', () => {
   it('should work on the client', () => {
@@ -63,22 +63,20 @@ Observable.of(1, 2, 3).filter(value => {
   return value > 2;
 }).subscribe(value => {
   console.log(value);
-});</pre><pre>// 3</pre></article><article class="build"><h2>Observable.prototype.map</h2><pre>Observable.of(1, 2, 3).map(value => {
+});</pre><pre>// → 3</pre></article><article class="build"><h2>Observable.prototype.map</h2><pre>Observable.of(1, 2, 3).map(value => {
   return value * 2;
 }).subscribe(value => {
   console.log(value);
-});</pre><pre>// 2
-// 4
-// 6</pre></article><article class="build"><h2>Observable.prototype.reduce</h2><pre>Observable.of(1, 2, 3).reduce((prev, curr) => {
+});</pre><pre>// → 2 → 4 → 6</pre></article><article class="build"><h2>Observable.prototype.reduce</h2><pre>Observable.of(1, 2, 3).reduce((prev, curr) => {
   return prev + curr;
 }).subscribe(result => {
   console.log(result);
-});</pre><pre>// 6</pre></article><article class="build"><h2>Observable.prototype.concat</h2><pre>Observable.of(1, 2, 3).concat(
+});</pre><pre>// → 6</pre></article><article class="build"><h2>Observable.prototype.concat</h2><pre>Observable.of(1, 2, 3).concat(
   Observable.of(4, 5, 6),
   Observable.of(7, 8, 9)
 ).subscribe(result => {
   console.log(result);
-});</pre><pre>// 1, 2, 3, 4, 5, 6, 7, 8, 9</pre></article><article class="build"><h1>Promise</h1><h2>Extensions</h2></article><article><h2>try / attempt</h2><ul class="build"><li>Converts function to promise</li><li>and sync errors to async</li></ul></article><article class="build"><h2>current</h2><pre>promise = new Promise((resolve, reject) => {
+});</pre><pre>// → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9</pre></article><article class="build"><h1>Promise</h1><h2>Extensions</h2></article><article><h2>try / attempt</h2><ul class="build"><li>Converts function to promise</li><li>and sync errors to async</li></ul></article><article class="build"><h2>current</h2><pre>promise = new Promise((resolve, reject) => {
   throw new Error('i failed');
 });
 promise.catch(console.log); // → i failed</pre></article><article class="build"><h2>Promise.try</h2><pre>promise = Promise.try(() => {
