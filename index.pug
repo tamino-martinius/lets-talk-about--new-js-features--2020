@@ -268,10 +268,19 @@ html
         h2 Stage 2 (Draft)
       article
         h1 Decorators
-      article
+      article.build
         h1 Temporal
-        h2 MomentJS
-        //- ! TODO !
+        h2 (like native MomentJS)
+      article.build
+        h2 Classes
+        pre
+          | Instant        // Point in time
+        pre
+          | OffsetDateTime // Offset from UTC (+01:00)
+        pre
+          | CivilDateTime  // Offset from Calendar
+        pre
+          | ZonedDateTime  // Offset + Timezone (Europe/Rome)
       article.build
         h1 (Weak)Set
         h2 Extensions
