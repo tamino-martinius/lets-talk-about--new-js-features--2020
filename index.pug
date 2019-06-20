@@ -144,13 +144,18 @@ html
         h1 Promise
         h2 Extensions
       article.build
-        h2 try / attempt
-        h3 Converts function to promise (and sync errors to async)
+        h1 try / attempt
+        h2 Converts function to promise
+        h2 and sync errors to async
+      article.build
+        h2 current
         pre
           | promise = new Promise((resolve, reject) => {
           |   throw new Error('i failed');
           | });
           | promise.catch(console.log); // => i failed
+      article.build
+        h2 Promise.try
         pre
           | promise = Promise.try(() => {
           |   throw new Error('i failed');
@@ -161,9 +166,28 @@ html
           |   return 'result';
           | });
           | promise.then(console.log); // => result
-
-
-
+      article
+        h2 Promise.all
+        h3 (ES 2015)
+        ul.build
+          li returns all results as array
+          li short-circuits on reject
+      article
+        h2 Promise.race
+        h3 (ES 2015)
+        ul.build
+          li resolves first settled promise
+          li rejects if first settled promise rejects
+      article
+        h2 Promise.any
+        ul.build
+          li rejects when no promise resolves
+          li short-circuits on resolve
+      article
+        h2 Promise.allSettled
+        ul.build
+          li returns all results as array
+          li does not short circuit
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
