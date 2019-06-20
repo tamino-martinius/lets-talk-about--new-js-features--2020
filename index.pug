@@ -542,6 +542,70 @@ html
       article.section
         h2 Stage 4 (Shipping)
       article.build
+        h1 Intl
+        h2 Internationalization aka I18l
+      article
+        h2 Langauge dependent formatting for
+        ul.build
+          li Dates / Times
+          li Numbers
+          li Plural Rules
+          li Collator (comparing)
+      article.build
+        h2 Intl.DateTimeFormat
+        pre
+          | const DateFormat = Intl.DateTimeFormat;
+        pre
+          | new DateFormat('en-US').format(date);
+          | // → '12/20/2019'
+        pre
+          | new DateFormat('en-GB').format(date);
+          | // → '20/12/2019'
+        pre
+          | // Include a fallback language
+          | new DateFormat(['foo', 'de']).format(date)
+          | // → '20.12.2019'
+      article.build
+        h2 Intl.NumberFormat
+        pre
+          | new Intl.NumberFormat('de-DE', {
+          |   style: 'currency', currency: 'EUR'
+          | }).format(number); // → '123.456,79 €'
+        pre
+          | // the Japanese yen doesn't use a minor unit
+          | new Intl.NumberFormat('ja-JP', {
+          |   style: 'currency', currency: 'JPY'
+          | }).format(number); // → '￥123,457'
+        pre
+          | new Intl.NumberFormat('en-IN', {
+          |   maximumSignificantDigits: 3
+          | }).format(number); // → '1,23,000'
+      article.build
+        h2 Intl.PluralRules
+        pre
+          | new Intl.PluralRules('en-US').select(0);
+          | // → 'other'
+        pre
+          | new Intl.PluralRules('en-US').select(1);
+          | // → 'one'
+        pre
+          | new Intl.PluralRules('en-US').select(2);
+          | // → 'other'
+      article.build
+        h2 Intl.Collator
+        pre
+          | function letterSort(lang, letters) {
+          |   letters.sort(new Intl.Collator(lang).compare);
+          |   return letters;
+          | }
+        pre
+          | console.log(letterSort('de', ['a','z','ä']));
+          | // expected output: Array ["a", "ä", "z"]
+        pre
+          | console.log(letterSort('sv', ['a','z','ä']));
+          | // expected output: Array ["a", "z", "ä"]
+
+      article.build
         h1 Array
         h2 Extensions
         ul.build
