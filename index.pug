@@ -16,7 +16,7 @@ html
       article
         h1 Stages
         ul.build
-          li Stage 0: Strawperson (Playground/PoC)
+          li Stage 0: Strawperson (Nothing/PoC)
           li Stage 1: Proposal (Polyfill)
           li Stage 2: Draft (Experimental)
           li Stage 3: Candidate (Spec compliant)
@@ -180,7 +180,7 @@ html
           |   console.log(value);
           | });
         pre
-          | // 3
+          | // → 3
       article.build
         h2 Observable.prototype.map
         pre
@@ -190,9 +190,7 @@ html
           |   console.log(value);
           | });
         pre
-          | // 2
-          | // 4
-          | // 6
+          | // → 2 → 4 → 6
       article.build
         h2 Observable.prototype.reduce
         pre
@@ -202,7 +200,7 @@ html
           |   console.log(result);
           | });
         pre
-          | // 6
+          | // → 6
       article.build
         h2 Observable.prototype.concat
         pre
@@ -213,7 +211,7 @@ html
           |   console.log(result);
           | });
         pre
-          | // 1, 2, 3, 4, 5, 6, 7, 8, 9
+          | // → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
       article.build
         h1 Promise
         h2 Extensions
