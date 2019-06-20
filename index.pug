@@ -292,6 +292,33 @@ html
           |   "hide implementation";
           |   // ...
           | }
+      article
+        h1 Realms
+      article
+        h2 Intuitions
+        ul.build
+          li sandbox
+          li iframe without DOM
+          li principled version of Node's 'vm' module
+          li sync worker
+      article
+        h2 Use cases
+        ul.build
+          li security isolation
+          li plugins
+          li in browser code editors
+          li server-side rendering
+          li testing
+      article.build
+        h2 Example
+        pre
+          | let g = window; // outer global
+          | let r = new Realm(); // root realm
+          |
+          | let f = r.evaluate("(function() { return 17 })");
+          |
+          | f() === 17 // true
+          | Error.prototype.stack
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
