@@ -540,6 +540,12 @@ html
       article.section
         h2 Stage 4 (Shipping)
       article.build
+        h2 Optional catch binding
+        pre
+          | try { ... } catch (unused) { ... }
+        pre
+          | try { ... } catch { ... }
+      article.build
         h1 Intl
         h2 Internationalization aka I18l
       article
@@ -639,12 +645,6 @@ html
         pre
           | const result = Object.fromEntries(entries);
           | // → { x: 42, y: 50 }
-      article.build
-        h2 Optional catch binding
-        pre
-          | try { ... } catch (unused) { ... }
-        pre
-          | try { ... } catch { ... }
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
