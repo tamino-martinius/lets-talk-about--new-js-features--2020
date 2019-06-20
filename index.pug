@@ -71,6 +71,16 @@ html
         h1 Math
         h2 Extensions
       article.build
+        h2 Seeded (Pseudo) Random Numbers
+        h3 Generates an enumerable based on the passed seed
+        pre
+          | for (const [i,r] of enumerate(
+          |   Math.seededPRNG({seed:0})
+          | )) {
+          |   // do something with each value
+          |   if(i >= limit) break;
+          | }
+      article.build
         h2 Clamp
         h3 Makes sure value stays in given range
         pre
