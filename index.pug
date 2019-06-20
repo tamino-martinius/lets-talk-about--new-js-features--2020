@@ -424,6 +424,37 @@ html
           | let nibbles = 0b1010_0001_1000_0101; // binary
         pre
           | let brandColor = 0x44_BB_44; // hex (colors)
+      article.build
+        h1 Class
+        h2 Extensions
+        ul.build
+          li static
+          li public
+          li async
+          li private
+      article.build
+        h2 private
+        h3 in classes or objects
+        pre
+          | class ColorFinder {
+          |   static #red = "#ff0000";
+          |   static #blue = "#00ff00";
+          |   static #green = "#0000ff";
+      article
+        pre
+          | class ColorFinder {
+          |   static #red = "#ff0000";
+          |   static #blue = "#00ff00";
+          |   static #green = "#0000ff";
+          |   static colorName(name) {
+          |     switch (name) {
+          |       case "red": return ColorFinder.#red;
+          |       case "blue": return ColorFinder.#blue;
+          |       case "green": return ColorFinder.#green;
+          |       default: throw new RangeError("unknown color");
+          |     }
+          |   }
+          | }
       article.image(data-src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
         h1 Thats it
