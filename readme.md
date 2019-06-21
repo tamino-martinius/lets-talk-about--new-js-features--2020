@@ -1,8 +1,4 @@
-# Lets Talk about ...
-
-## Whats new (and upcoming) in JS
-
-### 2019 Edition
+# Lets Talk about ... Whats new (and upcoming) in JS (2019 Edition)
 
 [View Slides](https://lets-talk-about--new-js-features--2019.tamino.dev)
 
