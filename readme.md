@@ -1,6 +1,6 @@
-# Lets Talk about ... Whats new (and upcoming) in JS (2019 Edition)
+# Lets Talk about ... Whats new (and upcoming) in JS (2020 Edition)
 
-[View Slides](https://new-js-features--2019.lets-talk-about.tamino.dev)
+[View Slides](https://new-js-features--2020.lets-talk-about.tamino.dev)
 
 ## Links
 
@@ -13,3 +13,7 @@
 [TypeScript Playground](https://www.typescriptlang.org/play/)
 
 [CodePen](https://codepen.io/)
+
+[2019 Edition](https://github.com/tamino-martinius/lets-talk-about--new-js-features--2019)
+
+[2018 Edition](https://github.com/tamino-martinius/lets-talk-about--new-js-features--2018)
