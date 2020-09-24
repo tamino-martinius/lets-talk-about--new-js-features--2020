@@ -1,7 +1,7 @@
 doctype html
 html
   head
-      title Lets talk about ... Whats new and upcoming in JavaScript (2019)
+      title Lets talk about ... Whats new and upcoming in JavaScript (2020)
       meta(charset='utf-8')
       link(href='styles.styl'  rel='stylesheet' type='text/css')
       doctype html
@@ -10,7 +10,7 @@ html
       article.build
         h2 Lets Talk about ...
         h2 Whats new (and upcoming) in JS
-        h2 2019 Edition
+        h2 2020 Edition
       article
         h1 Stages
         ul.build
@@ -22,394 +22,321 @@ html
       article.section
         h2 Stage 0 (Strawperson)
       article
-        h1 Nested Import
-      article.build
-        h2 Currently
-        pre(style='line-height: 3vw')
-          | import { strictEqual } from 'assert';
-          | import { check as checkC } from './client.js';
-          | import { check as checkS } from './server.js';
-        pre(style='line-height: 3vw')
-          | describe('fancy feature #5', () => {
-          |   it('should work on the client', () => {
-          |     strictEqual(checkC(), 'client ok');
-          |   });
-          |
-          |   it('should work on the server', () => {
-          |     strictEqual(checkS(), 'server ok');
-          |   });
-          | });
-      article.build
-        h2 With nested imports
-        pre(style='line-height: 3vw')
-          | describe('fancy feature #5', () => {
-          |   import { strictEqual } from 'assert';
-          |
-          |   it('should work on the client', () => {
-          |     import { check } from './client.js';
-          |     strictEqual(check(), 'client ok');
-          |   });
-          |
-          |   it('should work on the server', () => {
-          |     import { check } from './server.js';
-          |     strictEqual(check(), 'server ok');
-          |   });
-          | });
-      article
-        h2 Advantages
-        ul.build
-          li Lazy evaluation
-          li Scoped to enclosing block
-          li Backwards compatible
+        h2 Nothing interresting
       article.section
         h2 Stage 1 (Proposal)
       article.build
-        h1 Math
-        h2 Extensions
+        h1 Dedent
       article.build
-        h2 Seeded (Pseudo) Random Numbers
-        h3 Generates an enumerable based on the passed seed
+        h2 Current
         pre
-          | for (const [i,r] of enumerate(
-          |   Math.seededPRNG({seed:0})
-          | )) {
-          |   // do something with each value
-          |   if(i >= limit) break;
+          | console.log(`
+          |   query foo {
+          |     bar
+          |   }
+          | `)
+        pre
+          |
+          |
+          |  query foo {
+          |    bar
+          |  }
+          |
+          |
+          |
+      article
+        h2 Expected
+        pre
+          | console.log(`
+          |   query foo {
+          |     bar
+          |   }
+          | `)
+        pre
+          | query foo {
+          |   bar
           | }
       article.build
-        h2 Clamp
-        h3 Makes sure value stays in given range
+        h2 Current Solution
         pre
-          | Math.clamp(x, lower, upper);
+          | import dedent from 'dedent'
+          |
+          | console.log(dedent`
+          |   query foo {
+          |     bar
+          |   }
+          | `)
         pre
-          | Math.clamp(-10, 0, 100);  // → 0
-        pre
-          | Math.clamp(1000, 0, 100); // → 100
-        pre
-          | Math.clamp(0, 10, 100);   // → 10
+          | query foo {
+          |   bar
+          | }
       article.build
-        h2 Scale
-        h3 Maps value from input range to output range
+        h2 Problems
         pre
-          | Math.scale(x, inLow, inHigh, outLow, outHigh);
+          | const query = dedent(sql)`
+          |   select *
+          |   from students
+          |   where name = ${name}
+          | `
         pre
-          | Math.scale(0.25, 0, 1, 0, 100);    // → 25
+          | const raw = dedent`
+          |   query foo {
+          |     bar
+          |   }
+          | `;
+          |
+          | gql`${raw}`;
+      article
+        h2 Proposal
         pre
-          | Math.scale(0.25, 0, 1, -180, 180); // → -90
+          | console.log(```
+          |   query foo {
+          |     bar
+          |   }
+          | ```)
+        pre
+          | query foo {
+          |   bar
+          | }
       article.build
-        h1 Iterator
-        h2 Extensions
+        h1 UUID
       article.build
-        h2 Sample Iterator
+        h2 UUID
         pre
-          | function* naturals() {
-          |   let i = 0;
-          |   while (true) {
-          |     yield i;
-          |     i += 1;
+          | randomUUID();
+        pre
+          | // => "52e6953d-edbe-4953-be2e-65ed3836b2f0"
+      article.build
+        h1 Async Constructors
+      article.build
+        h2 Async Constructors
+        pre
+          | class X {
+          |   async constructor() {
+          |      await ...;
           |   }
           | }
         pre
-          | for (const i of naturals) {
-          |   // do something with each value
-          |   if(i >= limit) break;
+          | class Y extends X {
+          |   async constructor() {
+          |      await.super();
+          |   }
           | }
       article.build
-        h2 Filter
-        h3 Returns iterator which skips some values of source iterator
+        h1 Number.range
+      article.build
+        h2 Number.range
         pre
-          | const evens = naturals()
-          |   .filter((n) => n % 2 === 0);
+          | Number.range(0, Infinity)
+          |   .take(1000)
+          |   .filter((x) => !(x % 3))
+          |   .toArray()
         pre
-          | for (const i of evens) {
-          |   // do something with each value
-          |   if(i >= limit) break;
-          | }
+          | [...Number.range(1, 100, 2)]
+          | // => odd number from 1 to 99
       article
-        h2 Other extensions
-        ul.build
-          li map
-          li count
-          li min / max
-          li find
-          li skip / take
+        h2 BigInt.range
+        pre
+          | BigInt.range(0, Infinity)
+          |   .take(1000)
+          |   .filter((x) => !(x % 3))
+          |   .toArray()
+        pre
+          | [...BigInt.range(1, 100, 2)]
+          | // => odd number from 1 to 99
       article.build
-        h1 Observable
-        h2 Mix of Promise and Iterator
+        h1 Array
       article.build
-        h2 Create Observable
+        h2 Array.equals
         pre
-          | let observable = new Observable(observer => {
-          |   const {next, error, complete } = observer;
-          |   // Emit a single value after 1 second
-          |   let timer = setTimeout(() => {
-          |     next('hello');
-          |     complete();
-          |   }, 1000);
-          |
-          |   // Return cleanup function
-          |   return () => clearTimeout(timer);
-          | });
+          | [{
+          |   foo: 'bar'
+          | }, {
+          |   foo: 'baz'
+          | }].equals[{
+          |     foo: 'bar'
+          | }] // => false
+        pre
+          | [{ foo: 'bar' }, { foo: 'baz' }].equals[
+          |   { foo: 'bar' }, { foo: 'baz' }
+          | ] // => true
       article.build
-        h2 Observable.prototype.subscribe
+        h2 Array.uniqueBy
         pre
-          | let subscription = observable.subscribe(
-          |   x => console.log(x),
-          |   err => console.log(`Failed: ${err}`),
-          |   () => console.log('Finished')
-          | );
+          | [1, 2, 3, 3, 2, 1].uniqueBy();
+        pre
+          | // => [1, 2, 3]
       article.build
-        h2 Observable.prototype.forEach
+        h2 Array.uniqueBy
         pre
-          | observable.forEach(x => {
-          |   console.log(`Received value: ${ x }`);
-          | }).then(() => {
-          |   console.log('Finished successfully')
-          | }).catch(err => {
-          |   console.log(`Finished with error: ${ err }`);
-          | })
+          | data = [
+          |   { id: 1, uid: 10000 },
+          |   { id: 2, uid: 10000 },
+          |   { id: 3, uid: 10001 }
+          | ];
+        pre
+          | data.uniqueBy('uid');
+          | // [
+          | //   { id: 1, uid: 10000 },
+          | //   { id: 3, uid: 10001 }
+          | // ]
       article.build
-        h2 Observable.prototype.filter
+        h2 Array.uniqueBy
         pre
-          | observable.filter(callback)
-          | Observable.of(1, 2, 3).filter(value => {
-          |   return value > 2;
-          | }).subscribe(value => {
-          |   console.log(value);
-          | });
+          | data.uniqueBy(({ id, uid }) => `${id}-${uid}`);
         pre
-          | // → 3
+          | // [
+          | //   { id: 1, uid: 10000 },
+          | //   { id: 2, uid: 10000 },
+          | //   { id: 3, uid: 10001 }
+          | // ]
       article.build
-        h2 Observable.prototype.map
+        h2 Array.item
         pre
-          | Observable.of(1, 2, 3).map(value => {
-          |   return value * 2;
-          | }).subscribe(value => {
-          |   console.log(value);
-          | });
+          | [1, 2, 3].item(1);
         pre
-          | // → 2 → 4 → 6
+          | // => 2
+        pre
+          | [1, 2, 3].item(-1);
+        pre
+          | // => 3
       article.build
-        h2 Observable.prototype.reduce
-        pre
-          | Observable.of(1, 2, 3).reduce((prev, curr) => {
-          |   return prev + curr;
-          | }).subscribe(result => {
-          |   console.log(result);
-          | });
-        pre
-          | // → 6
+        h1 await.ops
       article.build
-        h2 Observable.prototype.concat
+        h2 await.ops
         pre
-          | Observable.of(1, 2, 3).concat(
-          |   Observable.of(4, 5, 6),
-          |   Observable.of(7, 8, 9)
-          | ).subscribe(result => {
-          |   console.log(result);
-          | });
+          | // before
+          | await Promise.all(
+          |   users.map(async x => fetchProfile(x.id))
+          | )
         pre
-          | // → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
+          | // after
+          | await.all users.map(
+          |   async x => fetchProfile(x.id)
+          | )
       article.build
-        h1 Promise
-        h2 Extensions
-      article
-        h2 try / attempt
-        ul.build
-          li Converts function to promise
-          li and sync errors to async
-      article.build
-        h2 current
+        h2 await.ops
         pre
-          | promise = new Promise((resolve, reject) => {
-          |   throw new Error('i failed');
-          | });
-          | promise.catch(console.log); // → i failed
-      article.build
-        h2 Promise.try
+          | await.all expr
+          | // => await Promise.all(expr)
         pre
-          | promise = Promise.try(() => {
-          |   throw new Error('i failed');
-          | });
-          | promise.catch(console.log); // → i failed
+          | await.race expr
+          | // => await Promise.race(expr)
         pre
-          | promise = Promise.try(() => {
-          |   return 'result';
-          | });
-          | promise.then(console.log);  // → result
-      article
-        h2 Promise.all
-        h3 (ES 2015)
-        ul.build
-          li returns all results as array
-          li short-circuits on reject
-      article
-        h2 Promise.race
-        h3 (ES 2015)
-        ul.build
-          li resolves first settled promise
-          li rejects if first settled promise rejects
-      article
-        h2 Promise.any
-        ul.build
-          li rejects when no promise resolves
-          li short-circuits on resolve
-      article
-        h2 Promise.allSettled
-        ul.build
-          li returns all results as array
-          li does not short circuit
-      article.section
+          | await.allSettled expr
+          | // => await Promise.allSettled(expr)
+        pre
+          | await.any expr
+          | // => await Promise.any(expr)
+
+      article.section.build
         h2 Stage 2 (Draft)
-      article
-        h1 Decorators
+        h2 Stage 3 (Candidate)
       article.build
-        h1 Temporal
-        h2 (like native MomentJS)
-      article.build
-        h2 Classes
-        pre
-          | Instant        // Point in time
-        pre
-          | OffsetDateTime // Offset from UTC (+01:00)
-        pre
-          | CivilDateTime  // Offset from Calendar
-        pre
-          | ZonedDateTime  // Offset + Timezone (Europe/Rome)
-      article.build
-        h1 (Weak)Set
-        h2 Extensions
-      article
-        h2 Array-like
+        h2 Already mentioned
         ul.build
-          li filter
-          li map
-          li find
-          li reduce
-          li join
-          li ...
-      article
-        h2 Manipulating
-        ul.build
-          li addAll(... elements)
-          li deleteAll(... elements)
-          li intersection
-          li union
-          li difference
-          li ...
-      article
-        h2 Comparing
-        ul.build
-          li isSubsetOf
-          li isDisjointFrom
-          li isSupersetOf
+          li Observable
+          li Decorators
+          li Temporal
+          li Promise Extensions
+          li Set Extensions
+          li Number format
+          li Realms
       article.build
-        h1 (Weak)Map
-        h2 Extensions
-      article
-        h2 Array-like
-        ul.build
-          li of / from
-          li filter
-          li mapKeys / mapValues
-          li reduce
-          li join
-          li ...
-      article
-        h2 Manipulating
-        ul.build
-          li deleteAll
-          li merge
-          li update
-      article
-        h2 Aggregation
-        ul.build
-          li groupBy
-          li keyBy
-      article.build
-        h1 throw
-        h2 in expression contexts
-      article.build
-        h2 Parameter initializers
+        h2 private
+        h3 in classes or objects
         pre
-          | function save(filename =
-          |   throw new TypeError('Argument required')
-          | ) {}
-      article.build
-        h2 Arrow function bodies
+          | class ColorFinder {
+          |   static #red = "#ff0000";
+          |   static #blue = "#00ff00";
+          |   static #green = "#0000ff";
+      article
         pre
-          | lint(ast, {
-          |   with: () => throw new Error(
-          |     "avoid using 'with' statements.
-          |   ")
-          | });
-      article.build
-        h2 Conditional expressions
-        pre
-          | const obj = str
-          |   ? JSON.parse(str)
-          |   : throw new Error('String required')
-          | ;
-      article.build
-        h2 Logical operations
-        pre
-          | class Product {
-          |   get id() { return this._id; }
-          |   set id(value) {
-          |     this._id = value ||
-          |       throw new Error("Invalid value")
-          |     ;
+          | class ColorFinder {
+          |   static #red = "#ff0000";
+          |   static #blue = "#00ff00";
+          |   static #green = "#0000ff";
+          |   static colorName(name) {
+          |     switch (name) {
+          |       case "red": return ColorFinder.#red;
+          |       case "blue": return ColorFinder.#blue;
+          |       case "green": return ColorFinder.#green;
+          |       default: throw new RangeError("unknown color");
+          |     }
           |   }
           | }
       article.build
-        h2 Function implementation hiding
-        pre
-          | Function.prototype.toString
-        pre
-          | Error.prototype.stack
-        pre
-          | function foo() {
-          |   "hide implementation";
-          |   // ...
-          | }
+        h1 Record
       article
-        h1 Realms
-      article
-        h2 Intuitions
+        h1 Record & Tuple
+      article.build
+        h2 Record
         ul.build
-          li sandbox
-          li iframe without DOM
-          li principled version of Node's 'vm' module
-          li sync worker
-      article
-        h2 Use cases
+          li immutable
+          li object like
+        pre
+          | \#{ a: 1 }
+      article.build
+        h2 Record
+        pre
+          | assert({ a: 1 } !== { a: 1 });
+        pre
+          | assert(Object(\#{ a: 1 }) !== Object(\#{ a: 1 }));
+        pre
+          | assert(\#{ a: 1 } === \#{ a: 1 });
+        pre
+          | assert(\#{ a: NaN } === \#{ a: NaN });
+        pre
+          | assert(typeof \#{ a: 1 } === "record");
+        pre
+          | assert(\#{ a: 1 } === JSON.parseImmutable(
+          |   JSON.stringify(\#{ a: 1 })
+          | ));
+      article.build
+        h2 Record
+        pre
+          | assert(\#{ a: 1, b: 2 } === \#{ b: 2, a: 1 });
+        pre
+          | Object.keys(\#{ a: 1, b: 2 }) // => ["a", "b"]
+          | Object.keys(\#{ b: 2, a: 1 }) // => ["a", "b"]
+      article.build
+        h2 Tuple
         ul.build
-          li security isolation
-          li plugins
-          li in browser code editors
-          li server-side rendering
-          li testing
+          li immutable
+          li object like
+        pre
+          | \#[ 1, 2, 3 ]
       article.build
-        h2 Example
+        h2 Tuple
         pre
-          | let g = window; // outer global
-          | let r = new Realm(); // root realm
-          |
-          | let f = r.evaluate("(function() { return 17 })");
-          |
-          | f() === 17 // true
-          | Error.prototype.stack
+          | assert([1, 2] !== [1, 2]);
+        pre
+          | assert(Object(\#[1, 2]) !== Object(\#[1, 2]));
+        pre
+          | assert(\#[1, 2] === \#[1, 2]);
+        pre
+          | assert(\#[NaN] === \#[NaN]);
+        pre
+          | assert(typeof \#[1, 2] === "tuple");
+        pre
+          | assert(\#[1, 2] === JSON.parseImmutable(
+          |   JSON.stringify(\#[1, 2])
+          | ));
       article.build
-        h1 String
-        h2 Extensions
+        h1 Import Assertions
       article.build
-        h2 String.replaceAll
+        h2 Import Assertions
         pre
-          | const query = 'q=query+string+parameters';
+          | import json from "./foo.json" assert { type: "json" };
         pre
-          | const withSpaces = query.replace(/\+/g, ' ');
+          | import("foo.json", { assert: { type: "json" } });
+      article.build
+        h2 Import Assertions
+        h3 using TypeScript / Babel
         pre
-          | const withSpaces = query.replaceAll('+', ' ');
+          | import * as data from "./foo.json";
+        pre
+          | // "compilerOptions": { "resolveJsonModule": true }
       article.build
         h1 Optional
         h2 Chaining
@@ -464,8 +391,6 @@ html
           | response.settings?.animationDuration ?? 300;
         pre
           | response.settings?.headerText ?? 'Hello, world!'
-      article.section
-        h2 Stage 3 (Candidate)
       article.build
         h1 Numeric
         h2 Separators
@@ -504,45 +429,19 @@ html
           | let nibbles = 0b1010_0001_1000_0101; // binary
         pre
           | let brandColor = 0x44_BB_44; // hex (colors)
-      article.build
-        h1 Class
-        h2 Extensions
-        ul.build
-          li static
-          li public
-          li async
-          li private
-      article.build
-        h2 private
-        h3 in classes or objects
-        pre
-          | class ColorFinder {
-          |   static #red = "#ff0000";
-          |   static #blue = "#00ff00";
-          |   static #green = "#0000ff";
-      article
-        pre
-          | class ColorFinder {
-          |   static #red = "#ff0000";
-          |   static #blue = "#00ff00";
-          |   static #green = "#0000ff";
-          |   static colorName(name) {
-          |     switch (name) {
-          |       case "red": return ColorFinder.#red;
-          |       case "blue": return ColorFinder.#blue;
-          |       case "green": return ColorFinder.#green;
-          |       default: throw new RangeError("unknown color");
-          |     }
-          |   }
-          | }
+
       article.section
         h2 Stage 4 (Shipping)
       article.build
-        h2 Optional catch binding
+        h1 Logical assignment
+      article.build
+        h2 Logical assignment
         pre
-          | try { ... } catch (unused) { ... }
+          | x &&= y;
         pre
-          | try { ... } catch { ... }
+          |x ||= y;
+        pre
+          |x ??= y;
       article.build
         h1 Intl
         h2 Internationalization aka I18l
