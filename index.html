@@ -1,133 +1,91 @@
-<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2019)</title><meta charset="utf-8"><link href="/styles.fa74dd77.css" rel="stylesheet" type="text/css"><!DOCTYPE html></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2019 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Nothing/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h1>Nested Import</h1></article><article class="build"><h2>Currently</h2><pre style="line-height:3vw">import { strictEqual } from 'assert';
-import { check as checkC } from './client.js';
-import { check as checkS } from './server.js';</pre><pre style="line-height:3vw">describe('fancy feature #5', () => {
-  it('should work on the client', () => {
-    strictEqual(checkC(), 'client ok');
-  });
-
-  it('should work on the server', () => {
-    strictEqual(checkS(), 'server ok');
-  });
-});</pre></article><article class="build"><h2>With nested imports</h2><pre style="line-height:3vw">describe('fancy feature #5', () => {
-  import { strictEqual } from 'assert';
-
-  it('should work on the client', () => {
-    import { check } from './client.js';
-    strictEqual(check(), 'client ok');
-  });
-
-  it('should work on the server', () => {
-    import { check } from './server.js';
-    strictEqual(check(), 'server ok');
-  });
-});</pre></article><article><h2>Advantages</h2><ul class="build"><li>Lazy evaluation</li><li>Scoped to enclosing block</li><li>Backwards compatible</li></ul></article><article class="section"><h2>Stage 1 (Proposal)</h2></article><article class="build"><h1>Math</h1><h2>Extensions</h2></article><article class="build"><h2>Seeded (Pseudo) Random Numbers</h2><h3>Generates an enumerable based on the passed seed</h3><pre>for (const [i,r] of enumerate(
-  Math.seededPRNG({seed:0})
-)) {
-  // do something with each value
-  if(i >= limit) break;
-}</pre></article><article class="build"><h2>Clamp</h2><h3>Makes sure value stays in given range</h3><pre>Math.clamp(x, lower, upper);</pre><pre>Math.clamp(-10, 0, 100);  // → 0</pre><pre>Math.clamp(1000, 0, 100); // → 100</pre><pre>Math.clamp(0, 10, 100);   // → 10</pre></article><article class="build"><h2>Scale</h2><h3>Maps value from input range to output range</h3><pre>Math.scale(x, inLow, inHigh, outLow, outHigh);</pre><pre>Math.scale(0.25, 0, 1, 0, 100);    // → 25</pre><pre>Math.scale(0.25, 0, 1, -180, 180); // → -90</pre></article><article class="build"><h1>Iterator</h1><h2>Extensions</h2></article><article class="build"><h2>Sample Iterator</h2><pre>function* naturals() {
-  let i = 0;
-  while (true) {
-    yield i;
-    i += 1;
+<!DOCTYPE html><html><head><title>Lets talk about ... Whats new and upcoming in JavaScript (2020)</title><meta charset="utf-8"><link href="/styles.fa74dd77.css" rel="stylesheet" type="text/css"><!DOCTYPE html></head><body><section class="slides layout-regular template-default"><article class="build"><h2>Lets Talk about ...</h2><h2>Whats new (and upcoming) in JS</h2><h2>2020 Edition</h2></article><article><h1>Stages</h1><ul class="build"><li>Stage 0: Strawperson (Nothing/PoC)</li><li>Stage 1: Proposal (Polyfill)</li><li>Stage 2: Draft (Experimental)</li><li>Stage 3: Candidate (Spec compliant)</li><li>Stage 4: Finished (Shipping)</li></ul></article><article class="section"><h2>Stage 0 (Strawperson)</h2></article><article><h2>Nothing interresting</h2></article><article class="section"><h2>Stage 1 (Proposal)</h2></article><article class="build"><h1>Dedent</h1></article><article class="build"><h2>Current</h2><pre>console.log(`
+  query foo {
+    bar
   }
-}</pre><pre>for (const i of naturals) {
-  // do something with each value
-  if(i >= limit) break;
-}</pre></article><article class="build"><h2>Filter</h2><h3>Returns iterator which skips some values of source iterator</h3><pre>const evens = naturals()
-  .filter((n) => n % 2 === 0);</pre><pre>for (const i of evens) {
-  // do something with each value
-  if(i >= limit) break;
-}</pre></article><article><h2>Other extensions</h2><ul class="build"><li>map</li><li>count</li><li>min / max</li><li>find</li><li>skip / take</li></ul></article><article class="build"><h1>Observable</h1><h2>Mix of Promise and Iterator</h2></article><article class="build"><h2>Create Observable</h2><pre>let observable = new Observable(observer => {
-  const {next, error, complete } = observer;
-  // Emit a single value after 1 second
-  let timer = setTimeout(() => {
-    next('hello');
-    complete();
-  }, 1000);
+`)</pre><pre>
 
-  // Return cleanup function
-  return () => clearTimeout(timer);
-});</pre></article><article class="build"><h2>Observable.prototype.subscribe</h2><pre>let subscription = observable.subscribe(
-  x => console.log(x),
-  err => console.log(`Failed: ${err}`),
-  () => console.log('Finished')
-);</pre></article><article class="build"><h2>Observable.prototype.forEach</h2><pre>observable.forEach(x => {
-  console.log(`Received value: ${ x }`);
-}).then(() => {
-  console.log('Finished successfully')
-}).catch(err => {
-  console.log(`Finished with error: ${ err }`);
-})</pre></article><article class="build"><h2>Observable.prototype.filter</h2><pre>observable.filter(callback)
-Observable.of(1, 2, 3).filter(value => {
-  return value > 2;
-}).subscribe(value => {
-  console.log(value);
-});</pre><pre>// → 3</pre></article><article class="build"><h2>Observable.prototype.map</h2><pre>Observable.of(1, 2, 3).map(value => {
-  return value * 2;
-}).subscribe(value => {
-  console.log(value);
-});</pre><pre>// → 2 → 4 → 6</pre></article><article class="build"><h2>Observable.prototype.reduce</h2><pre>Observable.of(1, 2, 3).reduce((prev, curr) => {
-  return prev + curr;
-}).subscribe(result => {
-  console.log(result);
-});</pre><pre>// → 6</pre></article><article class="build"><h2>Observable.prototype.concat</h2><pre>Observable.of(1, 2, 3).concat(
-  Observable.of(4, 5, 6),
-  Observable.of(7, 8, 9)
-).subscribe(result => {
-  console.log(result);
-});</pre><pre>// → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9</pre></article><article class="build"><h1>Promise</h1><h2>Extensions</h2></article><article><h2>try / attempt</h2><ul class="build"><li>Converts function to promise</li><li>and sync errors to async</li></ul></article><article class="build"><h2>current</h2><pre>promise = new Promise((resolve, reject) => {
-  throw new Error('i failed');
-});
-promise.catch(console.log); // → i failed</pre></article><article class="build"><h2>Promise.try</h2><pre>promise = Promise.try(() => {
-  throw new Error('i failed');
-});
-promise.catch(console.log); // → i failed</pre><pre>promise = Promise.try(() => {
-  return 'result';
-});
-promise.then(console.log);  // → result</pre></article><article><h2>Promise.all</h2><h3>(ES 2015)</h3><ul class="build"><li>returns all results as array</li><li>short-circuits on reject</li></ul></article><article><h2>Promise.race</h2><h3>(ES 2015)</h3><ul class="build"><li>resolves first settled promise</li><li>rejects if first settled promise rejects</li></ul></article><article><h2>Promise.any</h2><ul class="build"><li>rejects when no promise resolves</li><li>short-circuits on resolve</li></ul></article><article><h2>Promise.allSettled</h2><ul class="build"><li>returns all results as array</li><li>does not short circuit</li></ul></article><article class="section"><h2>Stage 2 (Draft)</h2></article><article><h1>Decorators</h1></article><article class="build"><h1>Temporal</h1><h2>(like native MomentJS)</h2></article><article class="build"><h2>Classes</h2><pre>Instant        // Point in time</pre><pre>OffsetDateTime // Offset from UTC (+01:00)</pre><pre>CivilDateTime  // Offset from Calendar</pre><pre>ZonedDateTime  // Offset + Timezone (Europe/Rome)</pre></article><article class="build"><h1>(Weak)Set</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>filter</li><li>map</li><li>find</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>addAll(... elements)</li><li>deleteAll(... elements)</li><li>intersection</li><li>union</li><li>difference</li><li>...</li></ul></article><article><h2>Comparing</h2><ul class="build"><li>isSubsetOf</li><li>isDisjointFrom</li><li>isSupersetOf</li></ul></article><article class="build"><h1>(Weak)Map</h1><h2>Extensions</h2></article><article><h2>Array-like</h2><ul class="build"><li>of / from</li><li>filter</li><li>mapKeys / mapValues</li><li>reduce</li><li>join</li><li>...</li></ul></article><article><h2>Manipulating</h2><ul class="build"><li>deleteAll</li><li>merge</li><li>update</li></ul></article><article><h2>Aggregation</h2><ul class="build"><li>groupBy</li><li>keyBy</li></ul></article><article class="build"><h1>throw</h1><h2>in expression contexts</h2></article><article class="build"><h2>Parameter initializers</h2><pre>function save(filename =
-  throw new TypeError('Argument required')
-) {}</pre></article><article class="build"><h2>Arrow function bodies</h2><pre>lint(ast, {
-  with: () => throw new Error(
-    "avoid using 'with' statements.
-  ")
-});</pre></article><article class="build"><h2>Conditional expressions</h2><pre>const obj = str
-  ? JSON.parse(str)
-  : throw new Error('String required')
-;</pre></article><article class="build"><h2>Logical operations</h2><pre>class Product {
-  get id() { return this._id; }
-  set id(value) {
-    this._id = value ||
-      throw new Error("Invalid value")
-    ;
+ query foo {
+   bar
+ }
+
+
+</pre></article><article><h2>Expected</h2><pre>console.log(`
+  query foo {
+    bar
   }
-}</pre></article><article class="build"><h2>Function implementation hiding</h2><pre>Function.prototype.toString</pre><pre>Error.prototype.stack</pre><pre>function foo() {
-  "hide implementation";
-  // ...
-}</pre></article><article><h1>Realms</h1></article><article><h2>Intuitions</h2><ul class="build"><li>sandbox</li><li>iframe without DOM</li><li>principled version of Node's 'vm' module</li><li>sync worker</li></ul></article><article><h2>Use cases</h2><ul class="build"><li>security isolation</li><li>plugins</li><li>in browser code editors</li><li>server-side rendering</li><li>testing</li></ul></article><article class="build"><h2>Example</h2><pre>let g = window; // outer global
-let r = new Realm(); // root realm
+`)</pre><pre>query foo {
+  bar
+}</pre></article><article class="build"><h2>Current Solution</h2><pre>import dedent from 'dedent'
 
-let f = r.evaluate("(function() { return 17 })");
+console.log(dedent`
+  query foo {
+    bar
+  }
+`)</pre><pre>query foo {
+  bar
+}</pre></article><article class="build"><h2>Problems</h2><pre>const query = dedent(sql)`
+  select *
+  from students
+  where name = ${name}
+`</pre><pre>const raw = dedent`
+  query foo {
+    bar
+  }
+`;
 
-f() === 17 // true
-Error.prototype.stack</pre></article><article class="build"><h1>String</h1><h2>Extensions</h2></article><article class="build"><h2>String.replaceAll</h2><pre>const query = 'q=query+string+parameters';</pre><pre>const withSpaces = query.replace(/\+/g, ' ');</pre><pre>const withSpaces = query.replaceAll('+', ' ');</pre></article><article class="build"><h1>Optional</h1><h2>Chaining</h2></article><article class="build"><h2>Current</h2><pre>var query = 'input[name=foo]';
-var $input = $form.querySelector(query)
-var value = $input ? $input.value : undefined</pre></article><article class="build"><h2>With optional chaining</h2><pre>var fooValue = $form.querySelector(query)?.value</pre><pre>var street = user?.address?.street</pre><pre>iterator.return?.() // manually close an iterator</pre></article><article class="build"><h1>Nullish</h1><h2>Coalescing</h2></article><article class="build"><h2>current</h2><pre>const undefinedValue =
-  response.settings?.undefinedValue
-  || 'some other default'
-; // result: 'some other default'</pre><pre>const nullValue =
-  response.settings?.nullValue
-  || 'some other default'
-; // result: 'some other default'</pre></article><article class="build"><h2>current problems</h2><pre>response.settings?.showSplashScreen || true</pre><pre>// False evaluates to false, result: true</pre><pre>response.settings?.animationDuration || 300;</pre><pre>// 0 evaluates to false, result: 300</pre><pre>response.settings?.headerText || 'Hello, world!'</pre><pre>// '' evaluates to false, result: 'Hello, world!'</pre></article><article class="build"><h2>Nullish Coalescing</h2><pre>response.settings?.showSplashScreen ?? true</pre><pre>response.settings?.animationDuration ?? 300;</pre><pre>response.settings?.headerText ?? 'Hello, world!'</pre></article><article class="section"><h2>Stage 3 (Candidate)</h2></article><article class="build"><h1>Numeric</h1><h2>Separators</h2></article><article class="build"><h2>current</h2><pre>1000000000
-101475938.38
-// Is this a billion? a hundred millions? Ten millions?</pre><pre>let fee = 12300;
-// is this 12,300? Or 123, because it's in cents?</pre><pre>let amount = 1234500;
-// is this 1,234,500? Or cents, hence 12,345?
-// Or financial, 4-fixed 123.45?</pre></article><article class="build"><h2>Numeric Separators</h2><pre>1_000_000_000           // Ah, so a billion
-101_475_938.38          // hundreds of millions</pre><pre>let fee = 123_00;       // $123 (12300 cents)
-let fee = 12_300;       // $12,300 (thats much)</pre><pre>let amount = 12345_00;  // 12,345 (1234500 cents)
-let amount = 123_4500;  // 123.45 (4-fixed fin.)
-let amount = 1_234_500; // 1,234,500</pre></article><article class="build"><h2>Numeric Separators</h2><pre>0.000_001 // fractions</pre><pre>1e10_000  // exponents</pre><pre>let nibbles = 0b1010_0001_1000_0101; // binary</pre><pre>let brandColor = 0x44_BB_44; // hex (colors)</pre></article><article class="build"><h1>Class</h1><h2>Extensions</h2><ul class="build"><li>static</li><li>public</li><li>async</li><li>private</li></ul></article><article class="build"><h2>private</h2><h3>in classes or objects</h3><pre>class ColorFinder {
+gql`${raw}`;</pre></article><article><h2>Proposal</h2><pre>console.log(```
+  query foo {
+    bar
+  }
+```)</pre><pre>query foo {
+  bar
+}</pre></article><article class="build"><h1>UUID</h1></article><article class="build"><h2>UUID</h2><pre>randomUUID();</pre><pre>// => "52e6953d-edbe-4953-be2e-65ed3836b2f0"</pre></article><article class="build"><h1>Async Constructors</h1></article><article class="build"><h2>Async Constructors</h2><pre>class X {
+  async constructor() {
+     await ...;
+  }
+}</pre><pre>class Y extends X {
+  async constructor() {
+     await.super();
+  }
+}</pre></article><article class="build"><h1>Number.range</h1></article><article class="build"><h2>Number.range</h2><pre>Number.range(0, Infinity)
+  .take(1000)
+  .filter((x) => !(x % 3))
+  .toArray()</pre><pre>[...Number.range(1, 100, 2)]
+// => odd number from 1 to 99</pre></article><article><h2>BigInt.range</h2><pre>BigInt.range(0, Infinity)
+  .take(1000)
+  .filter((x) => !(x % 3))
+  .toArray()</pre><pre>[...BigInt.range(1, 100, 2)]
+// => odd number from 1 to 99</pre></article><article class="build"><h1>Array</h1></article><article class="build"><h2>Array.equals</h2><pre>[{
+  foo: 'bar'
+}, {
+  foo: 'baz'
+}].equals[{
+    foo: 'bar'
+}] // => false</pre><pre>[{ foo: 'bar' }, { foo: 'baz' }].equals[
+  { foo: 'bar' }, { foo: 'baz' }
+] // => true</pre></article><article class="build"><h2>Array.uniqueBy</h2><pre>[1, 2, 3, 3, 2, 1].uniqueBy();</pre><pre>// => [1, 2, 3]</pre></article><article class="build"><h2>Array.uniqueBy</h2><pre>data = [
+  { id: 1, uid: 10000 },
+  { id: 2, uid: 10000 },
+  { id: 3, uid: 10001 }
+];</pre><pre>data.uniqueBy('uid');
+// [
+//   { id: 1, uid: 10000 },
+//   { id: 3, uid: 10001 }
+// ]</pre></article><article class="build"><h2>Array.uniqueBy</h2><pre>data.uniqueBy(({ id, uid }) => `${id}-${uid}`);</pre><pre>// [
+//   { id: 1, uid: 10000 },
+//   { id: 2, uid: 10000 },
+//   { id: 3, uid: 10001 }
+// ]</pre></article><article class="build"><h2>Array.item</h2><pre>[1, 2, 3].item(1);</pre><pre>// => 2</pre><pre>[1, 2, 3].item(-1);</pre><pre>// => 3</pre></article><article class="build"><h1>await.ops</h1></article><article class="build"><h2>await.ops</h2><pre>// before
+await Promise.all(
+  users.map(async x => fetchProfile(x.id))
+)</pre><pre>// after
+await.all users.map(
+  async x => fetchProfile(x.id)
+)</pre></article><article class="build"><h2>await.ops</h2><pre>await.all expr
+// => await Promise.all(expr)</pre><pre>await.race expr
+// => await Promise.race(expr)</pre><pre>await.allSettled expr
+// => await Promise.allSettled(expr)</pre><pre>await.any expr
+// => await Promise.any(expr)</pre></article><article class="section build"><h2>Stage 2 (Draft)</h2><h2>Stage 3 (Candidate)</h2></article><article class="build"><h2>Already mentioned</h2><ul class="build"><li>Observable</li><li>Decorators</li><li>Temporal</li><li>Promise Extensions</li><li>Set Extensions</li><li>Number format</li><li>Realms</li></ul></article><article class="build"><h2>private</h2><h3>in classes or objects</h3><pre>class ColorFinder {
   static #red = "#ff0000";
   static #blue = "#00ff00";
   static #green = "#0000ff";</pre></article><article><pre>class ColorFinder {
@@ -142,7 +100,29 @@ let amount = 1_234_500; // 1,234,500</pre></article><article class="build"><h2>N
       default: throw new RangeError("unknown color");
     }
   }
-}</pre></article><article class="section"><h2>Stage 4 (Shipping)</h2></article><article class="build"><h2>Optional catch binding</h2><pre>try { ... } catch (unused) { ... }</pre><pre>try { ... } catch { ... }</pre></article><article class="build"><h1>Intl</h1><h2>Internationalization aka I18l</h2></article><article><h2>Langauge dependent formatting for</h2><ul class="build"><li>Dates / Times</li><li>Numbers</li><li>Plural Rules</li><li>Collator (comparing)</li></ul></article><article class="build"><h2>Intl.DateTimeFormat</h2><pre>const DateFormat = Intl.DateTimeFormat;</pre><pre>new DateFormat('en-US').format(date);
+}</pre></article><article class="build"><h1>Record</h1></article><article><h1>Record & Tuple</h1></article><article class="build"><h2>Record</h2><ul class="build"><li>immutable</li><li>object like</li></ul><pre>#{ a: 1 }</pre></article><article class="build"><h2>Record</h2><pre>assert({ a: 1 } !== { a: 1 });</pre><pre>assert(Object(#{ a: 1 }) !== Object(#{ a: 1 }));</pre><pre>assert(#{ a: 1 } === #{ a: 1 });</pre><pre>assert(#{ a: NaN } === #{ a: NaN });</pre><pre>assert(typeof #{ a: 1 } === "record");</pre><pre>assert(#{ a: 1 } === JSON.parseImmutable(
+  JSON.stringify(#{ a: 1 })
+));</pre></article><article class="build"><h2>Record</h2><pre>assert(#{ a: 1, b: 2 } === #{ b: 2, a: 1 });</pre><pre>Object.keys(#{ a: 1, b: 2 }) // => ["a", "b"]
+Object.keys(#{ b: 2, a: 1 }) // => ["a", "b"]</pre></article><article class="build"><h2>Tuple</h2><ul class="build"><li>immutable</li><li>object like</li></ul><pre>#[ 1, 2, 3 ]</pre></article><article class="build"><h2>Tuple</h2><pre>assert([1, 2] !== [1, 2]);</pre><pre>assert(Object(#[1, 2]) !== Object(#[1, 2]));</pre><pre>assert(#[1, 2] === #[1, 2]);</pre><pre>assert(#[NaN] === #[NaN]);</pre><pre>assert(typeof #[1, 2] === "tuple");</pre><pre>assert(#[1, 2] === JSON.parseImmutable(
+  JSON.stringify(#[1, 2])
+));</pre></article><article class="build"><h1>Import Assertions</h1></article><article class="build"><h2>Import Assertions</h2><pre>import json from "./foo.json" assert { type: "json" };</pre><pre>import("foo.json", { assert: { type: "json" } });</pre></article><article class="build"><h2>Import Assertions</h2><h3>using TypeScript / Babel</h3><pre>import * as data from "./foo.json";</pre><pre>// "compilerOptions": { "resolveJsonModule": true }</pre></article><article class="build"><h1>Optional</h1><h2>Chaining</h2></article><article class="build"><h2>Current</h2><pre>var query = 'input[name=foo]';
+var $input = $form.querySelector(query)
+var value = $input ? $input.value : undefined</pre></article><article class="build"><h2>With optional chaining</h2><pre>var fooValue = $form.querySelector(query)?.value</pre><pre>var street = user?.address?.street</pre><pre>iterator.return?.() // manually close an iterator</pre></article><article class="build"><h1>Nullish</h1><h2>Coalescing</h2></article><article class="build"><h2>current</h2><pre>const undefinedValue =
+  response.settings?.undefinedValue
+  || 'some other default'
+; // result: 'some other default'</pre><pre>const nullValue =
+  response.settings?.nullValue
+  || 'some other default'
+; // result: 'some other default'</pre></article><article class="build"><h2>current problems</h2><pre>response.settings?.showSplashScreen || true</pre><pre>// False evaluates to false, result: true</pre><pre>response.settings?.animationDuration || 300;</pre><pre>// 0 evaluates to false, result: 300</pre><pre>response.settings?.headerText || 'Hello, world!'</pre><pre>// '' evaluates to false, result: 'Hello, world!'</pre></article><article class="build"><h2>Nullish Coalescing</h2><pre>response.settings?.showSplashScreen ?? true</pre><pre>response.settings?.animationDuration ?? 300;</pre><pre>response.settings?.headerText ?? 'Hello, world!'</pre></article><article class="build"><h1>Numeric</h1><h2>Separators</h2></article><article class="build"><h2>current</h2><pre>1000000000
+101475938.38
+// Is this a billion? a hundred millions? Ten millions?</pre><pre>let fee = 12300;
+// is this 12,300? Or 123, because it's in cents?</pre><pre>let amount = 1234500;
+// is this 1,234,500? Or cents, hence 12,345?
+// Or financial, 4-fixed 123.45?</pre></article><article class="build"><h2>Numeric Separators</h2><pre>1_000_000_000           // Ah, so a billion
+101_475_938.38          // hundreds of millions</pre><pre>let fee = 123_00;       // $123 (12300 cents)
+let fee = 12_300;       // $12,300 (thats much)</pre><pre>let amount = 12345_00;  // 12,345 (1234500 cents)
+let amount = 123_4500;  // 123.45 (4-fixed fin.)
+let amount = 1_234_500; // 1,234,500</pre></article><article class="build"><h2>Numeric Separators</h2><pre>0.000_001 // fractions</pre><pre>1e10_000  // exponents</pre><pre>let nibbles = 0b1010_0001_1000_0101; // binary</pre><pre>let brandColor = 0x44_BB_44; // hex (colors)</pre></article><article class="section"><h2>Stage 4 (Shipping)</h2></article><article class="build"><h1>Logical assignment</h1></article><article class="build"><h2>Logical assignment</h2><pre>x &&= y;</pre><pre>x ||= y;</pre><pre>x ??= y;</pre></article><article class="build"><h1>Intl</h1><h2>Internationalization aka I18l</h2></article><article><h2>Langauge dependent formatting for</h2><ul class="build"><li>Dates / Times</li><li>Numbers</li><li>Plural Rules</li><li>Collator (comparing)</li></ul></article><article class="build"><h2>Intl.DateTimeFormat</h2><pre>const DateFormat = Intl.DateTimeFormat;</pre><pre>new DateFormat('en-US').format(date);
 // → '12/20/2019'</pre><pre>new DateFormat('en-GB').format(date);
 // → '20/12/2019'</pre><pre>// Include a fallback language
 new DateFormat(['foo', 'de']).format(date)
