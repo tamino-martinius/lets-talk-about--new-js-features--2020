@@ -19,12 +19,24 @@ html
           li Stage 2: Draft (Experimental)
           li Stage 3: Candidate (Spec compliant)
           li Stage 4: Finished (Shipping)
-      article.section
+      article.section.build
         h2 Stage 0 (Strawperson)
-      article
-        h2 Nothing interresting
-      article.section
         h2 Stage 1 (Proposal)
+      article.build
+        h2 Already mentioned
+        ul.build
+          li Nested Imports
+          li Math Extensions
+          //- Seeded Random
+          //- Clamp
+          //- Scale
+          li Iterator Extensions
+          //- Filter
+          //- Map
+          //- Count
+          //- Min/Max
+          //- Find
+          //- Skip/Take
       article.build
         h1 Dedent
       article.build
@@ -59,7 +71,7 @@ html
       article.build
         h2 Current Solution
         pre
-          | import dedent from 'dedent'
+          | import dedent from 'ts-dedent'
           |
           | console.log(dedent`
           |   query foo {
@@ -80,12 +92,12 @@ html
           | `
         pre
           | const raw = dedent`
-          |   query foo {
-          |     bar
-          |   }
-          | `;
+          |   select *
+          |   from students
+          |   where name = ${name}
+          | `
           |
-          | gql`${raw}`;
+          | sql`${raw}`;
       article
         h2 Proposal
         pre
@@ -157,9 +169,9 @@ html
           |     foo: 'bar'
           | }] // => false
         pre
-          | [{ foo: 'bar' }, { foo: 'baz' }].equals[
+          | [{ foo: 'bar' }, { foo: 'baz' }].equals([
           |   { foo: 'bar' }, { foo: 'baz' }
-          | ] // => true
+          | ]) // => true
       article.build
         h2 Array.uniqueBy
         pre
@@ -240,7 +252,6 @@ html
           li Temporal
           li Promise Extensions
           li Set Extensions
-          li Number format
           li Realms
       article.build
         h2 private
@@ -303,7 +314,7 @@ html
         h2 Tuple
         ul.build
           li immutable
-          li object like
+          li array like
         pre
           | \#[ 1, 2, 3 ]
       article.build
@@ -429,119 +440,12 @@ html
           | let nibbles = 0b1010_0001_1000_0101; // binary
         pre
           | let brandColor = 0x44_BB_44; // hex (colors)
-
-      article.section
-        h2 Stage 4 (Shipping)
       article.build
-        h1 Logical assignment
-      article.build
-        h2 Logical assignment
+        h2 Top Level await
         pre
-          | x &&= y;
+          | const connection = await dbConnector();
         pre
-          |x ||= y;
-        pre
-          |x ??= y;
-      article.build
-        h1 Intl
-        h2 Internationalization aka I18l
-      article
-        h2 Langauge dependent formatting for
-        ul.build
-          li Dates / Times
-          li Numbers
-          li Plural Rules
-          li Collator (comparing)
-      article.build
-        h2 Intl.DateTimeFormat
-        pre
-          | const DateFormat = Intl.DateTimeFormat;
-        pre
-          | new DateFormat('en-US').format(date);
-          | // → '12/20/2019'
-        pre
-          | new DateFormat('en-GB').format(date);
-          | // → '20/12/2019'
-        pre
-          | // Include a fallback language
-          | new DateFormat(['foo', 'de']).format(date)
-          | // → '20.12.2019'
-      article.build
-        h2 Intl.NumberFormat
-        pre
-          | new Intl.NumberFormat('de-DE', {
-          |   style: 'currency', currency: 'EUR'
-          | }).format(number); // → '123.456,79 €'
-        pre
-          | // the Japanese yen doesn't use a minor unit
-          | new Intl.NumberFormat('ja-JP', {
-          |   style: 'currency', currency: 'JPY'
-          | }).format(number); // → '￥123,457'
-        pre
-          | new Intl.NumberFormat('en-IN', {
-          |   maximumSignificantDigits: 3
-          | }).format(number); // → '1,23,000'
-      article.build
-        h2 Intl.PluralRules
-        pre
-          | new Intl.PluralRules('en-US').select(0);
-          | // → 'other'
-        pre
-          | new Intl.PluralRules('en-US').select(1);
-          | // → 'one'
-        pre
-          | new Intl.PluralRules('en-US').select(2);
-          | // → 'other'
-      article.build
-        h2 Intl.Collator
-        pre
-          | function letterSort(lang, letters) {
-          |   letters.sort(new Intl.Collator(lang).compare);
-          |   return letters;
-          | }
-        pre
-          | console.log(letterSort('de', ['a','z','ä']));
-          | // expected output: Array ["a", "ä", "z"]
-        pre
-          | console.log(letterSort('sv', ['a','z','ä']));
-          | // expected output: Array ["a", "z", "ä"]
-
-      article.build
-        h1 Array
-        h2 Extensions
-      article.build
-        h2 Array.prototype.flat
-        pre
-          | const array = [1, [2, [3, [4]]]];
-        pre
-          | array.flat();         // → [1, 2, [3, [4]]];
-        pre
-          | array.flat(2);        // → [1, 2, 3, [4]];
-        pre
-          | array.flat(Infinity); // → [1, 2, 3, 4];
-      article.build
-        h2 Array.prototype.flatMap
-        pre
-          | const dup = (x) => [x, x];
-        pre
-          | [3, 4].map(dup);        // → [[3, 3], [4, 4]]
-        pre
-          | [3, 4].map(dup).flat(); // 🐌 → [3, 3, 4, 4]
-        pre
-          | [3, 4].flatMap(dup);    // 🚀 → [3, 3, 4, 4]
-      article.build
-        h1 Object
-        h2 Extensions
-      article.build
-        h2 Object.prototype.entities
-        pre
-          | const object = { x: 42, y: 50 };
-          | const entries = Object.entries(object);
-          | // → [['x', 42], ['y', 50]]
-        h2 <br/>Object.prototype.fromEntities
-        pre
-          | const result = Object.fromEntries(entries);
-          | // → { x: 42, y: 50 }
+          | const strings = await import(`/i18n/${navigator.language}`);
       article
         img.bg(src="node_modules/lets-talk-about--template/assets/memes/all-the-things.jpg")
         h1 &nbsp;
